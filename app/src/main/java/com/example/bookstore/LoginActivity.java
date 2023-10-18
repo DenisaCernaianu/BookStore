@@ -8,14 +8,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.bookstore.databinding.ActivityLoginBinding;
+import com.example.bookstore.databinding.ActivityMainBinding;
+
 public class LoginActivity extends AppCompatActivity {
     Button btnSignUp;
     EditText  email, password;
     Button btnLogIn;
+    private ActivityLoginBinding binding ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+       // setContentView(R.layout.activity_login);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
 
         btnSignUp = findViewById(R.id.btnSignUp);

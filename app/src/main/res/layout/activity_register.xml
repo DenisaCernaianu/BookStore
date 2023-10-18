@@ -5,8 +5,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context=".RegisterActivity"
-android:background="@color/white"
+tools:context=".RegisterActivity" android:background="@drawable/bg"
 android:paddingTop="20dp"
 android:paddingBottom="20dp"
 android:paddingRight="10dp"
@@ -19,7 +18,7 @@ android:paddingLeft="10dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:id="@+id/LLimage"
-    android:background="@color/white"
+
 
     >
 
@@ -43,7 +42,7 @@ android:paddingLeft="10dp"
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:id="@+id/ETusername"
             android:background="@drawable/edittextbackround"
             android:hint="Username"
@@ -60,10 +59,11 @@ android:paddingLeft="10dp"
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:id="@+id/ETemail"
             android:background="@drawable/edittextbackround"
             android:hint="Email"
+            android:inputType="textEmailAddress"
             android:textColorHint="@color/black"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -77,10 +77,29 @@ android:paddingLeft="10dp"
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:id="@+id/ETpassword"
+            android:inputType="textPassword"
             android:background="@drawable/edittextbackround"
             android:hint="Password"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginBottom="20dp"
+            android:textAlignment="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:backgroundTint="@color/purple"
+            android:drawableLeft="@drawable/login_key"
+
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/ETconfirmpassword"
+            android:inputType="textPassword"
+            android:background="@drawable/edittextbackround"
+            android:hint="Confirm Password"
             android:textColorHint="@color/black"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -128,12 +147,12 @@ android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="Already have an account ?"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:backgroundTint="@color/purple"
         android:text="Log In !"
         android:textColor="@color/black" />
