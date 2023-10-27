@@ -5,40 +5,95 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context=".RegisterActivity" android:background="@drawable/bg"
-android:paddingTop="20dp"
-android:paddingBottom="20dp"
-android:paddingRight="10dp"
-android:paddingLeft="10dp"
+tools:context=".RegisterActivity"
+    android:background="@drawable/mainbg"
+
 
 
     >
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:id="@+id/LLimage"
-
-
-    >
-
-
-    <ImageView
-        android:id="@+id/bookIcon"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@mipmap/book_icon"
-
+        android:layout_height="match_parent"
+        android:background="@color/purple"
+        android:alpha="0.6"
         />
 
 
     <LinearLayout
+        android:id="@+id/LLimage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/card_view_register"
+        android:gravity="center"
+        android:orientation="vertical"
+
+        >
+
+
+        <ImageView
+            android:id="@+id/bookIcon"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@mipmap/book_icon"
+
+
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bookstore"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            android:textStyle="bold">
+
+        </TextView>
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        app:cardCornerRadius="30dp"
+        android:layout_marginBottom="-14dp"
+        android:id="@+id/card_view_register"
+        app:cardBackgroundColor="@color/white"
+        >
+
+
+
+
+    <LinearLayout
         android:id="@+id/LLlogin"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="28dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Welcome !"
+            android:textColor="@color/purple"
+            android:textSize="32sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:paddingTop="6dp"
+            android:paddingBottom="30dp"
+            android:text="Please complete all fields with your information "
+            android:textColor="@color/black"
+            android:textStyle="bold">
+
+        </TextView>
 
         <EditText
             android:layout_width="match_parent"
@@ -53,7 +108,7 @@ android:paddingLeft="10dp"
             android:textAlignment="center"
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
-            android:backgroundTint="@color/purple"
+            android:backgroundTint="@color/grey"
             android:drawableLeft="@drawable/username"
             />
 
@@ -71,7 +126,7 @@ android:paddingLeft="10dp"
             android:textAlignment="center"
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
-            android:backgroundTint="@color/purple"
+            android:backgroundTint="@color/grey"
             android:drawableLeft="@drawable/login_email"
             />
 
@@ -89,7 +144,7 @@ android:paddingLeft="10dp"
             android:textAlignment="center"
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
-            android:backgroundTint="@color/purple"
+            android:backgroundTint="@color/grey"
             android:drawableLeft="@drawable/login_key"
 
             />
@@ -107,8 +162,8 @@ android:paddingLeft="10dp"
             android:textAlignment="center"
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
-            android:backgroundTint="@color/purple"
-            android:drawableLeft="@drawable/login_key"
+            android:backgroundTint="@color/grey"
+            android:drawableLeft="@drawable/password"
 
             />
 
@@ -116,49 +171,43 @@ android:paddingLeft="10dp"
             android:id="@+id/btnSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
             android:layout_gravity="center"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:backgroundTint="@color/purple"
             android:text="Sign Up"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="60dp"/>
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp">
 
+            <TextView
+                android:id="@+id/TVsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:text="Already have an account ?"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/purple"
+                android:text="Log In !"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-
-
-
-</LinearLayout>
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_centerInParent="true"
-    android:orientation="horizontal">
-
-    <TextView
-        android:id="@+id/TVsg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingRight="10dp"
-        android:text="Already have an account ?"
-        android:textColor="@color/black"
-        android:textSize="15sp" />
-
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:backgroundTint="@color/purple"
-        android:text="Log In !"
-        android:textColor="@color/black" />
-
-</LinearLayout>
-
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
 
