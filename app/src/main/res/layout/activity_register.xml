@@ -133,6 +133,25 @@ tools:context=".RegisterActivity"
         <EditText
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:id="@+id/ETphone"
+            android:background="@drawable/edittextbackround"
+            android:hint="Phone"
+            android:inputType="phone|number"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginBottom="20dp"
+            android:textAlignment="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:backgroundTint="@color/grey"
+            android:drawableLeft="@drawable/phone"
+            />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:id="@+id/ETpassword"
             android:inputType="textPassword"
             android:background="@drawable/edittextbackround"

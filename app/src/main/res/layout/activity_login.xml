@@ -94,7 +94,7 @@
 
 
             <EditText
-                android:id="@+id/ETemail"
+                android:id="@+id/ETEmailLogin"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginBottom="20dp"
@@ -111,7 +111,27 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/ETpassword"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/ETphoneLogin"
+                android:background="@drawable/edittextbackround"
+                android:hint="Phone"
+                android:inputType="phone|number"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_marginBottom="20dp"
+                android:textAlignment="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="20dp"
+                android:backgroundTint="@color/grey"
+                android:drawableLeft="@drawable/phone"
+                />
+
+
+
+            <EditText
+                android:id="@+id/ETPasswordLogin"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginBottom="20dp"
