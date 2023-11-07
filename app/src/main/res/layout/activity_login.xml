@@ -73,7 +73,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Welcome back !"
+                android:text="Bine ai revenit !"
                 android:textColor="@color/purple"
                 android:textSize="32sp"
                 android:textStyle="bold">
@@ -86,38 +86,23 @@
                 android:alpha="0.7"
                 android:paddingTop="6dp"
                 android:paddingBottom="30dp"
-                android:text="Please log in with your information "
+                android:text="Completează toate câmpurile pentru logare."
                 android:textColor="@color/black"
-                android:textStyle="bold">
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp">
 
             </TextView>
 
 
-            <EditText
-                android:id="@+id/ETEmailLogin"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/edittextbackround"
-                android:backgroundTint="@color/grey"
-                android:drawableLeft="@drawable/login_email"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:paddingLeft="10dp"
-                android:paddingRight="20dp"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                android:textSize="20sp" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:id="@+id/ETphoneLogin"
                 android:background="@drawable/edittextbackround"
-                android:hint="Phone"
+                android:hint="Telefon"
                 android:inputType="phone|number"
-                android:textColorHint="@color/black"
+                android:textColorHint="@color/bgrey"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:layout_marginBottom="20dp"
@@ -138,13 +123,13 @@
                 android:background="@drawable/edittextbackround"
                 android:backgroundTint="@color/grey"
                 android:drawableLeft="@drawable/login_key"
-                android:hint="Password"
+                android:hint="Parolă"
                 android:inputType="textPassword"
                 android:paddingLeft="10dp"
                 android:paddingRight="20dp"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textColorHint="@color/black"
+                android:textColorHint="@color/bgrey"
                 android:textSize="20sp"
 
                 />
@@ -155,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:paddingRight="10dp"
-                android:text="Forget password?"
+                android:text="Ai uitat parola ?"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
@@ -164,10 +149,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="25dp"
-                android:layout_marginBottom="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:backgroundTint="@color/purple"
-                android:text="Log In"
+                android:text="Autentificare"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
 
@@ -184,18 +169,19 @@
                     android:id="@+id/TVsg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingRight="10dp"
-                    android:text="Don't have an account ?"
+                    android:text="Nu ai încă un cont ?"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <Button
                     android:id="@+id/btnSignUp"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:backgroundTint="@color/purple"
-                    android:text="Sign Up !"
-                    android:textColor="@color/white" />
+                    android:layout_height="50dp"
+                    android:text="Înregistreză-te !"
+                    android:textStyle="bold"
+                    android:textColor="@color/purple"
+                    style="@style/Widget.Material3.Button.TextButton.Dialog"
+                    android:textSize="15sp"/>
 
             </LinearLayout>
 

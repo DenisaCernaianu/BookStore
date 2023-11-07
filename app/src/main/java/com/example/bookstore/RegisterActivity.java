@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.media.MediaCodec;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -14,28 +13,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.bookstore.databinding.ActivityLoginBinding;
+
 import com.example.bookstore.databinding.ActivityRegisterBinding;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.ktx.Firebase;
-
-import java.util.HashMap;
-import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
     Button btnSignUp;
     EditText username, email, password, phone, confirmPassword;
     Button btnLogIn;
 
-    private ActivityRegisterBinding binding;
+   // private ActivityRegisterBinding binding;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
@@ -43,11 +35,11 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_register);
-      binding = ActivityRegisterBinding.inflate(getLayoutInflater());
-       setContentView(binding.getRoot());
+        setContentView(R.layout.activity_register);
+     // binding = ActivityRegisterBinding.inflate(getLayoutInflater());
+       //setContentView(binding.getRoot());
 
-        firebaseAuth = firebaseAuth.getInstance();
+        //firebaseAuth = firebaseAuth.getInstance();
 
         progressDialog =  new ProgressDialog(this);
         progressDialog.setTitle("Please wait");
@@ -88,26 +80,30 @@ public class RegisterActivity extends AppCompatActivity {
         phonedb = phone.getText().toString().trim();
 
         if(TextUtils.isEmpty(usernamedb)){
-            Toast.makeText(this, "Please enter your username", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Introduceți numele !", Toast.LENGTH_SHORT).show();
         }
       else if(TextUtils.isEmpty(emaildb)){
-            Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Introduceți adresa de email !", Toast.LENGTH_SHORT).show();
         }
         else if(!Patterns.EMAIL_ADDRESS.matcher(emaildb).matches()){
-            Toast.makeText(this, "Invalid email address", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Adresă de email invalidă !", Toast.LENGTH_SHORT).show();
         }
         else if(TextUtils.isEmpty(phonedb)){
-            Toast.makeText(this, "Please enter phone number", Toast.LENGTH_SHORT).show();}
+            Toast.makeText(this, "Introduceți numărul de telefon !", Toast.LENGTH_SHORT).show();}
+        else if((phonedb.length() != 10) || !(phonedb.substring(0,2).equals("07"))){
+            Toast.makeText(this, "Numărul de telefon este invalid !", Toast.LENGTH_LONG).show();}
         else if(TextUtils.isEmpty(passworddb)){
-            Toast.makeText(this, "Please enter a password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Introduceți parola !", Toast.LENGTH_SHORT).show();
+        }   else if(passworddb.length()<6){
+            Toast.makeText(this, "Introduceți o parolă de minim 6 caractere !", Toast.LENGTH_SHORT).show();
         }else if(TextUtils.isEmpty(confirmPassworddb)){
-            Toast.makeText(this, "Please confirm your password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Confirmați parola !", Toast.LENGTH_SHORT).show();
         }else if(!passworddb.equals(confirmPassworddb)){
-            Toast.makeText(this, "Password doesn't match", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Parolele nu se potrivesc !", Toast.LENGTH_SHORT).show();
         }else
         {
-            progressDialog.setMessage("Creating Account");
-            progressDialog.show();
+            //progressDialog.setMessage("Creating Account");
+            //progressDialog.show();
             createUserAccount();
         }
 
@@ -118,16 +114,18 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.hasChild(phonedb)){
-                    Toast.makeText(RegisterActivity.this, "An account with this phone number already exists!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Un cont cu acest număr de telefon deja există !", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 } else {
+                    progressDialog.setMessage("Creating Account");
+                    progressDialog.show();
 
                     //trimit datele catre realtime database si folosesc nr de tel ca id unic
                     databaseReference.child("Users").child(phonedb).child("username").setValue(usernamedb);
                     databaseReference.child("Users").child(phonedb).child("email").setValue(emaildb);
                     databaseReference.child("Users").child(phonedb).child("password").setValue(passworddb.hashCode());
                     progressDialog.dismiss();
-                    Toast.makeText(RegisterActivity.this, "Your account was created", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Contul a fost creat !", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     finish();
                 }

@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:paddingBottom="30dp"
-                    android:text="Welcome !"
+                    android:text="Bine ai venit !"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="40sp" />
@@ -46,7 +46,7 @@
                     android:layout_gravity="center"
                     android:textColor="@color/white"
                     android:backgroundTint="@color/purple"
-                    android:text="Log In"
+                    android:text="Autentificare"
                     android:textSize="20dp"
                     />
 
@@ -58,7 +58,7 @@
                     android:layout_gravity="center"
                     android:textColor="@color/white"
                     android:backgroundTint="@color/purple"
-                    android:text="Sign Up"
+                    android:text="Înregistrare"
                     android:textSize="20dp"/>
 
 
