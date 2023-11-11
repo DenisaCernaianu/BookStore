@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,12 +27,18 @@ public class VerifyOTPActivity extends AppCompatActivity {
     private EditText inputCode1, inputCode2, inputCode3, inputCode4, inputCode5, inputCode6;
      Button buttonVerifyOTP;
 
+     ProgressBar progressBarOTP;
+
+
     private String OTP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_otpactivity);
+
+        progressBarOTP = findViewById(R.id.progressBarOTP);
+        progressBarOTP.setVisibility(View.INVISIBLE);
         
         inputCode1 = findViewById(R.id.inputCode1);
         inputCode2 = findViewById(R.id.inputCode2);
@@ -62,6 +69,7 @@ public class VerifyOTPActivity extends AppCompatActivity {
                         +inputCode4.getText().toString()+inputCode5.getText().toString()+inputCode6.getText().toString();
 
                 if(OTP != null){
+                    progressBarOTP.setVisibility(View.VISIBLE);
                     PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(OTP, code);
 
                     FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential)

@@ -1,9 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".HomeActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        app:cardCornerRadius="0dp"
+        android:layout_marginTop="0dp"
+        android:id="@+id/card_view_home"
+        app:cardBackgroundColor="@color/white"
+        >
+
+
+
+
+        <!-- <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/Logo">
+
+    </ImageView>  -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingStart="10dp"
+            android:paddingLeft="30dp"
+            android:text="BOOKVERSE"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+        >
+
+        </TextView>
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+    <EditText
+        android:id="@+id/ETSearch"
+        android:layout_below="@id/card_view_home"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/edittextbackround"
+        android:backgroundTint="@color/grey"
+        android:drawableRight="@drawable/search_icon"
+        android:gravity="center"
+        android:textColorHint="@color/bgrey"
+        android:hint="Ce produs cauti azi?"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:textSize="20sp">
+
+    </EditText>
+
+
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ETSearch"
+        android:layout_above="@+id/LLmenu"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/bgrey"
+            android:text="Recomandarile noastre : "
+            android:textStyle="bold"
+            android:gravity="left"
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@id/ETSearch">
+
+        </TextView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_addBook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/purple"
+            android:src="@drawable/add_icon" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LLmenu"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/purple">
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginRight="20dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/home_icon"
+            android:text="Acasa"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/pink"
+            android:layout_marginLeft="10dp">
+
+        </Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/pink"
+            android:drawableLeft="@drawable/cart_icon">
+
+        </Button>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginRight="20dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/heart_icon"
+
+            android:backgroundTint="@color/pink">
+
+        </Button>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginRight="20dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/account_icon"
+            android:backgroundTint="@color/pink">
+
+        </Button>
+    </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>
+

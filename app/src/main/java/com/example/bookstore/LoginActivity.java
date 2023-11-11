@@ -11,6 +11,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.bookstore.Model.Users;
@@ -39,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
     com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken resendingToken;
    // private ActivityLoginBinding binding ;
    private FirebaseAuth firebaseAuth;
+
+   ProgressBar progressBar;
     private ProgressDialog progressDialog;
 
 
@@ -64,6 +67,9 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.ETPasswordLogin);
         phone = findViewById(R.id.ETphoneLogin);
 
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
+
 
 
 
@@ -81,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
                 validateData();
             }
 
@@ -97,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         }else if(TextUtils.isEmpty(passworddb)){
             Toast.makeText(this, "Introduceți parola", Toast.LENGTH_SHORT).show();
         }else {
+
             verifyUser();
         }
 
@@ -115,7 +123,8 @@ public class LoginActivity extends AppCompatActivity {
                         if((userData.getPassword() )== passworddb.hashCode()){
 
                           //  Toast.makeText(LoginActivity.this, "Succes!!", Toast.LENGTH_SHORT).show();
-                           phoneNumber = "+4" + phone.getText().toString().trim();
+                            progressBar.setVisibility(View.VISIBLE);
+                            phoneNumber = "+4" + phone.getText().toString().trim();
                            sendOTP(phoneNumber,false );
 
                         }else {
