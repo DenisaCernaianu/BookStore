@@ -125,6 +125,7 @@ public class LoginActivity extends AppCompatActivity {
                           //  Toast.makeText(LoginActivity.this, "Succes!!", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.VISIBLE);
                             phoneNumber = "+4" + phone.getText().toString().trim();
+
                            sendOTP(phoneNumber,false );
 
                         }else {
@@ -170,6 +171,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = new Intent(LoginActivity.this, VerifyOTPActivity.class);
                                 intent.putExtra("verificationCode", verificationCode);
                                 intent.putExtra("phoneNumber",phoneNumber);
+                                intent.putExtra("phoneNumber1",phonedb);
                                 startActivity(intent);}
 
 

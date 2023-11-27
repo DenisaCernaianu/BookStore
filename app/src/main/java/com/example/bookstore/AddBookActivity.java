@@ -22,10 +22,14 @@ import android.os.Environment;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
@@ -60,19 +64,23 @@ public class AddBookActivity extends AppCompatActivity {
    private String bTitle, bAuthor, bType, bDescription, bPrice, saveCurrentData, saveCurrentTime;
 
     private EditText bookTitle, bookAuthor, bookPrice, bookDetails, bookType;
+private boolean state;
+    private CheckBox checkBoxSale;
+    private TextView textViewPrice;
 
     private ImageView bookImage;
     private static final int GalleryPick = 1, GALLERY_PERM_CODE=2;
 
     private static final int CAMERA_PERM_CODE =101, CAPTURE_CODE=100;
-    private Uri ImageUri;
-    private Uri ImageUriCam;
+    private Uri ImageUri = null, ImageFinalUri=null;
+    private Uri ImageUriCam = null;
 
 
     private String bookRandomKey, downloadUrl;
     private StorageReference bookImageReference;
 
     private DatabaseReference dbRef;
+    private String  phoneNumber;
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
 
@@ -82,6 +90,10 @@ public class AddBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
         String currentPhotoPath;
+
+        Intent intent = getIntent();
+        String getNumber = intent.getStringExtra("phoneNumber");
+        phoneNumber = getNumber;
 
         bookImageReference = FirebaseStorage.getInstance().getReference().child("Book Images");
 
@@ -94,10 +106,42 @@ public class AddBookActivity extends AppCompatActivity {
         bookType=findViewById(R.id.bookType);
         bookPrice=findViewById(R.id.bookPrice);
         bookDetails=findViewById(R.id.bookDetails);
+        textViewPrice=findViewById(R.id.textViewPrice);
+        checkBoxSale=findViewById(R.id.checkBoxSale);
+
+        bPrice=bookPrice.getText().toString().trim();
+        bPrice= "0";
+
+
+       boolean state=false;
+
+
 
         dbRef = FirebaseDatabase.getInstance().getReference().child("Books");
 
 
+      checkBoxSale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+
+          @Override
+          public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+              if(b==true){
+              textViewPrice.setVisibility(View.VISIBLE);
+              bookPrice.setVisibility(View.VISIBLE);
+              bPrice="1";
+              }
+              else{ bPrice= "0";
+                  textViewPrice.setVisibility(View.INVISIBLE);
+                  bookPrice.setVisibility(View.INVISIBLE);
+                  //bPrice=bookPrice.getText().toString().trim();
+              }
+                 }
+
+
+
+
+      });
         bookImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,6 +206,7 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AddBookActivity.this, HomeActivity.class));
+
             }
         });
     }
@@ -205,8 +250,8 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode== GALLERY_PERM_CODE && resultCode==RESULT_OK && data!=null){
-            ImageUriCam = data.getData();
-            bookImage.setImageURI(ImageUriCam);}
+            ImageUri = data.getData();
+            bookImage.setImageURI(ImageUri);}
        else if(requestCode==CAMERA_PERM_CODE && resultCode==RESULT_OK && data!=null){
             //ImageUriCam = data.getData();
             //bookImage.setImageURI(ImageUriCam);
@@ -249,34 +294,43 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
 
 
     private void ValidateProductData(){
+        int ok=1;
 
         bTitle=bookTitle.getText().toString().trim();
         bAuthor=bookAuthor.getText().toString().trim();
         bType=bookType.getText().toString().trim();
+
+      if(bPrice=="1"){
+        bPrice=bookPrice.getText().toString().trim();
+        ok=1;
+      if(bPrice.equals("0")) {Toast.makeText(this, "Pretul trebuie sa fie mai mare ca 0. ", Toast.LENGTH_SHORT).show();
+      ok=0;}}
         bPrice=bookPrice.getText().toString().trim();
         bDescription=bookDetails.getText().toString().trim();
-        
-        if(ImageUriCam == null){
-            Toast.makeText(this, "Introduceti o poza ", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(bTitle)) {
-            Toast.makeText(this, "Introduceti titlul", Toast.LENGTH_SHORT).show();
-            
-        } else if (TextUtils.isEmpty(bAuthor)) {
-            Toast.makeText(this, "Introduceti autorul", Toast.LENGTH_SHORT).show();
 
-        } else if (TextUtils.isEmpty(bType)) {
-            Toast.makeText(this, "Introduceti genul", Toast.LENGTH_SHORT).show();
 
-        } else if (TextUtils.isEmpty(bPrice)) {
-            Toast.makeText(this, "Introduceti pretul", Toast.LENGTH_SHORT).show();
+        if(ok==1) {
+            if (ImageUriCam == null && ImageUri == null) {
+                Toast.makeText(this, "Introduceti o poza ", Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(bTitle)) {
+                Toast.makeText(this, "Introduceti titlul", Toast.LENGTH_SHORT).show();
 
-        } else if (TextUtils.isEmpty(bDescription)) {
-            Toast.makeText(this, "Introduceti descrierea", Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(bAuthor)) {
+                Toast.makeText(this, "Introduceti autorul", Toast.LENGTH_SHORT).show();
 
-        } else {
-            StoreProductInformation();
+            } else if (TextUtils.isEmpty(bType)) {
+                Toast.makeText(this, "Introduceti genul", Toast.LENGTH_SHORT).show();
+
+            } else if (TextUtils.isEmpty(bPrice)) {
+                Toast.makeText(this, "Introduceti pretul", Toast.LENGTH_SHORT).show();
+
+            } else if (TextUtils.isEmpty(bDescription)) {
+                Toast.makeText(this, "Introduceti descrierea", Toast.LENGTH_SHORT).show();
+
+            } else {
+                StoreProductInformation();
+            }
         }
-
 
     }
 
@@ -291,10 +345,12 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
 
        bookRandomKey = (saveCurrentData + saveCurrentTime);
 
+        if(ImageUri == null){ ImageFinalUri = ImageUriCam;}
+        else {ImageFinalUri = ImageUri;}
+        StorageReference filePath = bookImageReference.child(ImageFinalUri.getLastPathSegment() + bookRandomKey +".jpg");
 
-        StorageReference filePath = bookImageReference.child(ImageUriCam.getLastPathSegment() + bookRandomKey +".jpg");
+      final UploadTask uploadTask = filePath.putFile(ImageFinalUri);
 
-        final UploadTask uploadTask = filePath.putFile(ImageUriCam);
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -324,7 +380,7 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
                         if(task.isSuccessful()){
 
                             downloadUrl = task.getResult().toString();
-                            Toast.makeText(AddBookActivity.this, "Book image url is saved", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddBookActivity.this, "Book is saved", Toast.LENGTH_SHORT).show();
                             saveBookInformationToDb();
                         }
                     }
@@ -357,9 +413,12 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
                     databaseReference.child("Books").child(bookRandomKey).child("price").setValue(bPrice);
                     databaseReference.child("Books").child(bookRandomKey).child("description").setValue(bDescription);
                     databaseReference.child("Books").child(bookRandomKey).child("image").setValue(downloadUrl);
+                     databaseReference.child("Books").child(bookRandomKey).child("ownerNumber").setValue(phoneNumber);
+
                    // progressDialog.dismiss();
                     Toast.makeText(AddBookActivity.this, "SUCCES !", Toast.LENGTH_SHORT).show();
-                   // startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                    finish();
+                    startActivity(new Intent(AddBookActivity.this, AddBookActivity.class));
                    // finish();
                 }
            // }
