@@ -172,7 +172,9 @@ public class LoginActivity extends AppCompatActivity {
                                 intent.putExtra("verificationCode", verificationCode);
                                 intent.putExtra("phoneNumber",phoneNumber);
                                 intent.putExtra("phoneNumber1",phonedb);
-                                startActivity(intent);}
+                                startActivity(intent);
+                            finish();}
+
 
 
                         });

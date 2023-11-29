@@ -40,6 +40,7 @@ public class VerifyOTPActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String getNumber = intent.getStringExtra("phoneNumber1");
+        intent.putExtra("phoneNumber",getNumber);
 
         progressBarOTP = findViewById(R.id.progressBarOTP);
         progressBarOTP.setVisibility(View.INVISIBLE);
@@ -81,11 +82,12 @@ public class VerifyOTPActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()){
-                                    Toast.makeText(VerifyOTPActivity.this, "Codul este corect!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(VerifyOTPActivity.this, "Codul este corect !" , Toast.LENGTH_SHORT).show();
                                     //startActivity(new Intent(VerifyOTPActivity.this, HomeActivity.class));
                                         Intent intent = new Intent(VerifyOTPActivity.this, HomeActivity.class);
                                         intent.putExtra("phoneNumber",getNumber);
                                         startActivity(intent);
+                                        finish();
                                     } else{ Toast.makeText(VerifyOTPActivity.this, "Codul este incorect !", Toast.LENGTH_SHORT).show();}
 
                                 }

@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -29,9 +30,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookstore.Model.Books;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -82,6 +85,10 @@ private boolean state;
     private DatabaseReference dbRef;
     private String  phoneNumber;
 
+    private int check=0;
+    ProgressBar progressBarAdd;
+
+
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
 
 
@@ -90,10 +97,10 @@ private boolean state;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
         String currentPhotoPath;
+       // phoneNumber="0";
 
         Intent intent = getIntent();
-        String getNumber = intent.getStringExtra("phoneNumber");
-        phoneNumber = getNumber;
+         phoneNumber = intent.getStringExtra("phoneNumber");
 
         bookImageReference = FirebaseStorage.getInstance().getReference().child("Book Images");
 
@@ -108,15 +115,8 @@ private boolean state;
         bookDetails=findViewById(R.id.bookDetails);
         textViewPrice=findViewById(R.id.textViewPrice);
         checkBoxSale=findViewById(R.id.checkBoxSale);
-
-        bPrice=bookPrice.getText().toString().trim();
-        bPrice= "0";
-
-
-       boolean state=false;
-
-
-
+        progressBarAdd=findViewById(R.id.progressBarAdd);
+        progressBarAdd.setVisibility(View.INVISIBLE);
         dbRef = FirebaseDatabase.getInstance().getReference().child("Books");
 
 
@@ -129,12 +129,12 @@ private boolean state;
               if(b==true){
               textViewPrice.setVisibility(View.VISIBLE);
               bookPrice.setVisibility(View.VISIBLE);
-              bPrice="1";
+              check=1;
               }
-              else{ bPrice= "0";
+              else{
                   textViewPrice.setVisibility(View.INVISIBLE);
                   bookPrice.setVisibility(View.INVISIBLE);
-                  //bPrice=bookPrice.getText().toString().trim();
+                  check=0;
               }
                  }
 
@@ -206,6 +206,7 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AddBookActivity.this, HomeActivity.class));
+                //finish();
 
             }
         });
@@ -284,7 +285,7 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
 
             ImageUriCam = Uri.fromFile(imageFile);
 
-            Toast.makeText(this, "Image send successfully!", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "Image send successfully!", Toast.LENGTH_SHORT).show();
 
         }catch (Exception e){
 
@@ -294,22 +295,38 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
 
 
     private void ValidateProductData(){
-        int ok=1;
+
 
         bTitle=bookTitle.getText().toString().trim();
         bAuthor=bookAuthor.getText().toString().trim();
         bType=bookType.getText().toString().trim();
-
-      if(bPrice=="1"){
-        bPrice=bookPrice.getText().toString().trim();
-        ok=1;
-      if(bPrice.equals("0")) {Toast.makeText(this, "Pretul trebuie sa fie mai mare ca 0. ", Toast.LENGTH_SHORT).show();
-      ok=0;}}
         bPrice=bookPrice.getText().toString().trim();
         bDescription=bookDetails.getText().toString().trim();
+          String phoneNumber1 = phoneNumber;
+
+     /*   if(check==1){
+          //  bPrice=bookPrice.getText().toString().trim();
+            if(TextUtils.isEmpty(bPrice) || bPrice.equals("0") ){
+                Toast.makeText(this, "Date incorecte! Introduceti un pret valid! ", Toast.LENGTH_SHORT).show();
+
+            }
+        } else {bookPrice.setText("0");
+            bPrice=bookPrice.getText().toString().trim();}*/
+
+    /*  if(bPrice=="1"){
+        bPrice=bookPrice.getText().toString().trim();
+       // ok=1;
+          if (TextUtils.isEmpty(bPrice)) {
+              Toast.makeText(this, "Introduceti pretul", Toast.LENGTH_SHORT).show(); ok=0;}
+      if(bPrice.equals("0")) {Toast.makeText(this, "Pretul trebuie sa fie mai mare ca 0. ", Toast.LENGTH_SHORT).show();
+      ok=0;}
+          //bPrice=bookPrice.getText().toString().trim();
+      }
+       // bPrice=bookPrice.getText().toString().trim();*/
 
 
-        if(ok==1) {
+
+        if(check==1) {
             if (ImageUriCam == null && ImageUri == null) {
                 Toast.makeText(this, "Introduceti o poza ", Toast.LENGTH_SHORT).show();
             } else if (TextUtils.isEmpty(bTitle)) {
@@ -321,8 +338,36 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
             } else if (TextUtils.isEmpty(bType)) {
                 Toast.makeText(this, "Introduceti genul", Toast.LENGTH_SHORT).show();
 
-            } else if (TextUtils.isEmpty(bPrice)) {
+           } else if (TextUtils.isEmpty(bPrice)) {
                 Toast.makeText(this, "Introduceti pretul", Toast.LENGTH_SHORT).show();
+
+            }
+         else if ((bPrice.equals("0"))) {
+            Toast.makeText(this, "Pretul nu poate fi 0", Toast.LENGTH_SHORT).show();
+
+        }
+            else if (TextUtils.isEmpty(bDescription)) {
+                Toast.makeText(this, "Introduceti descrierea", Toast.LENGTH_SHORT).show();
+
+            } else {
+                StoreProductInformation();
+            }
+        }
+        else
+        {bPrice="0";
+            if (ImageUriCam == null && ImageUri == null) {
+                Toast.makeText(this, "Introduceti o poza ", Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(bTitle)) {
+                Toast.makeText(this, "Introduceti titlul", Toast.LENGTH_SHORT).show();
+
+            } else if (TextUtils.isEmpty(bAuthor)) {
+                Toast.makeText(this, "Introduceti autorul", Toast.LENGTH_SHORT).show();
+
+            } else if (TextUtils.isEmpty(bType)) {
+                Toast.makeText(this, "Introduceti genul", Toast.LENGTH_SHORT).show();
+
+          //  } else if (TextUtils.isEmpty(bPrice)) {
+             //   Toast.makeText(this, "Introduceti pretul", Toast.LENGTH_SHORT).show();
 
             } else if (TextUtils.isEmpty(bDescription)) {
                 Toast.makeText(this, "Introduceti descrierea", Toast.LENGTH_SHORT).show();
@@ -330,11 +375,15 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
             } else {
                 StoreProductInformation();
             }
+
         }
 
     }
 
     private void StoreProductInformation() {
+
+
+        progressBarAdd.setVisibility(View.VISIBLE);
 
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat currentData = new SimpleDateFormat("MM dd yyyy");
@@ -362,7 +411,7 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(AddBookActivity.this, "Imaginea a fost salvata!", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(AddBookActivity.this, "Imaginea a fost salvata!", Toast.LENGTH_SHORT).show();
 
                 Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                     @Override
@@ -380,7 +429,7 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
                         if(task.isSuccessful()){
 
                             downloadUrl = task.getResult().toString();
-                            Toast.makeText(AddBookActivity.this, "Book is saved", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddBookActivity.this, "Cartea a fost salvata !", Toast.LENGTH_SHORT).show();
                             saveBookInformationToDb();
                         }
                     }
@@ -396,46 +445,55 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
     }
     private void saveBookInformationToDb() {
 
-        databaseReference.child("Books").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //if(snapshot.hasChild(bookRandomKey)){
-                   // Toast.makeText(AddBookActivity.this, "Un cont cu acest număr de telefon deja există !", Toast.LENGTH_SHORT).show();
-                    //progressDialog.dismiss();
-                //} else {
-                  //  progressDialog.setMessage("Creating Account");
-                    //progressDialog.show();
+       // if(!bPrice.equals("0")) {
 
+            databaseReference.child("Books").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    //if(snapshot.hasChild(bookRandomKey)){
+                    // Toast.makeText(AddBookActivity.this, "Un cont cu acest număr de telefon deja există !", Toast.LENGTH_SHORT).show();
+                    //progressDialog.dismiss();
+                    //} else {
+                    //progressDialog.setMessage("Creating Account");
+                    //progressDialog.show();
+                  //  phoneNumber="089";
+                 // double price = Double.parseDouble(bPrice);
                     //trimit datele catre realtime database si folosesc nr de tel ca id unic
+                   databaseReference.child("Books").child(bookRandomKey).child("ownerNumber").setValue(phoneNumber);
                     databaseReference.child("Books").child(bookRandomKey).child("title").setValue(bTitle);
                     databaseReference.child("Books").child(bookRandomKey).child("author").setValue(bAuthor);
                     databaseReference.child("Books").child(bookRandomKey).child("type").setValue(bType);
                     databaseReference.child("Books").child(bookRandomKey).child("price").setValue(bPrice);
                     databaseReference.child("Books").child(bookRandomKey).child("description").setValue(bDescription);
                     databaseReference.child("Books").child(bookRandomKey).child("image").setValue(downloadUrl);
-                     databaseReference.child("Books").child(bookRandomKey).child("ownerNumber").setValue(phoneNumber);
 
-                   // progressDialog.dismiss();
-                    Toast.makeText(AddBookActivity.this, "SUCCES !", Toast.LENGTH_SHORT).show();
-                    finish();
+
+
+                    progressBarAdd.setVisibility(View.INVISIBLE);
+                  //  Toast.makeText(AddBookActivity.this, "Cartea a fost adaugata cu succes!", Toast.LENGTH_LONG).show();
+                    //finish();
                     startActivity(new Intent(AddBookActivity.this, AddBookActivity.class));
-                   // finish();
+                    finish();
                 }
-           // }
+                // }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                  //  Toast.makeText(AddBookActivity.this, "Cartea nu a putut fi adaugata!", Toast.LENGTH_LONG).show();
 
-            }
-        });
+                }
+
+            });
 
 
 
 
-      /*  HashMap<String, Object> bookMap=  new HashMap<>();
+
+
+       /* HashMap<String, Object> bookMap=  new HashMap<>();
         bookMap.put("pid",bookRandomKey);
-        bookMap.put("date",saveCurrentData);
-        bookMap.put("title",bookTitle);
+        bookMap.put("datenou",saveCurrentData);
+        bookMap.put("titlenew",bookTitle);
         bookMap.put("author",bookAuthor);
         bookMap.put("type",bookType);
         bookMap.put("price",bookPrice);
@@ -454,7 +512,13 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
                          }
                     }
                 });
+
         */
 
+        ////////////////////////////////////////////////////////
+       // Books book = new Books(bookRandomKey, bAuthor, bTitle, bDescription,bType,12,99);
+
+        //dbRef.child(bookRandomKey).setValue(book);
+      //  }
     }
 }

@@ -71,7 +71,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/card_view_add_book"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="50dp"
@@ -84,7 +84,7 @@
                 android:layout_width="203dp"
                 android:layout_height="153dp"
                 android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:src="@drawable/add_book">
 
             </ImageView>
@@ -238,6 +238,15 @@
                 android:textSize="20sp">
 
             </EditText>
+
+            <ProgressBar
+                android:id="@+id/progressBarAdd"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:backgroundTint="@color/purple"
+                >
+
+            </ProgressBar>
 
 
             <Button
