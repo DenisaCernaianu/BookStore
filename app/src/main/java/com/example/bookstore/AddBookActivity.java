@@ -466,6 +466,7 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
                     databaseReference.child("Books").child(bookRandomKey).child("price").setValue(bPrice);
                     databaseReference.child("Books").child(bookRandomKey).child("description").setValue(bDescription);
                     databaseReference.child("Books").child(bookRandomKey).child("image").setValue(downloadUrl);
+                    databaseReference.child("Books").child(bookRandomKey).child("id").setValue(bookRandomKey);
 
 
 

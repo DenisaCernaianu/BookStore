@@ -1,13 +1,15 @@
 package com.example.bookstore.Model;
 
 public class Books {
-    private String author, description, image, title,type, ownerNumber, price;
+    private String author, description, image, title,type, ownerNumber, price,id;
 
     public Books(){
 
     }
 
-    public Books(String title, String author,String type, String description, String image, String price, String ownerNumber){
+
+
+    public Books(String title, String author, String type, String description, String image, String price, String ownerNumber, String id){
         this.title = title;
         this.author=author;
         this.type=type;
@@ -15,6 +17,14 @@ public class Books {
         this.image=image;
         this.price=price;
         this.ownerNumber=ownerNumber;
+        this.id = id;
+    }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getAuthor() {

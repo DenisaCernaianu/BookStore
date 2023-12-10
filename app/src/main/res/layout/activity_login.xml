@@ -101,7 +101,7 @@
                 android:id="@+id/ETphoneLogin"
                 android:background="@drawable/edittextbackround"
                 android:hint="Telefon"
-                android:inputType="phone|number"
+                android:inputType="textEmailAddress"
                 android:textColorHint="@color/bgrey"
                 android:textColor="@color/black"
                 android:textSize="20sp"

@@ -1,16 +1,25 @@
 package com.example.bookstore.Model;
 
 public class Users {
-    private String username, email;
+    private String username, email, phone;
     private  double password;
 
     public Users(){
 
     }
 
-    public Users(String username, String email, double password) {
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Users(String username, String email, String phone, double password) {
         this.username = username;
         this.email = email;
+        this.phone = phone;
         this.password = password;
     }
 

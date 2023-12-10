@@ -31,6 +31,8 @@ List<Books> list;
 DatabaseReference databaseReference;
 MyAdapter adapter;
 
+Button btnDetails;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,8 @@ MyAdapter adapter;
         Intent intent = getIntent();
         String getNumber = intent.getStringExtra("phoneNumber");
 
-       // intent.putExtra("getNumber",getNumber);
+       intent.putExtra("getNumber",getNumber);
+
 
         recyclerView = findViewById(R.id.recycleview);
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -62,11 +65,12 @@ MyAdapter adapter;
                     final String getType = dataSnapshot.child("type").getValue(String.class);
                     final String getOwnerNumber = dataSnapshot.child("ownerNumber").getValue(String.class);
                     final String getDescription = dataSnapshot.child("description").getValue(String.class);
+                    final String getId = dataSnapshot.child("id").getValue(String.class);
 
                    // Books books = dataSnapshot.getValue(Books.class);
                     //list.add(books);
                     if(!getPrice.equals("0")){
-                    Books books = new Books(getTitle, getAuthor, getType, getDescription,getImage, getPrice, getOwnerNumber  );
+                    Books books = new Books(getTitle, getAuthor, getType, getDescription,getImage, getPrice, getOwnerNumber, getId );
                     list.add(books);}
 
 
