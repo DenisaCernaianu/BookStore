@@ -37,9 +37,12 @@ public class LoginActivity extends AppCompatActivity {
 
     String verificationCode;
     String phoneNumber;
+
+    String nrtel;
     com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken resendingToken;
    // private ActivityLoginBinding binding ;
    private FirebaseAuth firebaseAuth;
+   public Users userActual;
 
    ProgressBar progressBar;
     private ProgressDialog progressDialog;
@@ -119,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(snapshot.hasChild(phonedb))
                 {
                    Users userData = snapshot.child(phonedb).getValue(Users.class);
+                    nrtel = userData.getPhone();
 
                         if((userData.getPassword() )== passworddb.hashCode()){
 
@@ -127,6 +131,8 @@ public class LoginActivity extends AppCompatActivity {
                             phoneNumber = "+4" + phone.getText().toString().trim();
 
                            sendOTP(phoneNumber,false );
+
+                           userActual = snapshot.child(phonedb).getValue(Users.class);
 
                         }else {
                             Toast.makeText(LoginActivity.this, "Parolă incorectă !", Toast.LENGTH_LONG).show();

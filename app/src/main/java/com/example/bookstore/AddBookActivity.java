@@ -429,7 +429,9 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
                         if(task.isSuccessful()){
 
                             downloadUrl = task.getResult().toString();
+
                             Toast.makeText(AddBookActivity.this, "Cartea a fost salvata !", Toast.LENGTH_SHORT).show();
+
                             saveBookInformationToDb();
                         }
                     }
@@ -459,7 +461,7 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
                   //  phoneNumber="089";
                  // double price = Double.parseDouble(bPrice);
                     //trimit datele catre realtime database si folosesc nr de tel ca id unic
-                   databaseReference.child("Books").child(bookRandomKey).child("ownerNumber").setValue(phoneNumber);
+                  databaseReference.child("Books").child(bookRandomKey).child("ownerNumber").setValue(phoneNumber);
                     databaseReference.child("Books").child(bookRandomKey).child("title").setValue(bTitle);
                     databaseReference.child("Books").child(bookRandomKey).child("author").setValue(bAuthor);
                     databaseReference.child("Books").child(bookRandomKey).child("type").setValue(bType);
@@ -471,10 +473,10 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
 
 
                     progressBarAdd.setVisibility(View.INVISIBLE);
-                  //  Toast.makeText(AddBookActivity.this, "Cartea a fost adaugata cu succes!", Toast.LENGTH_LONG).show();
+
                     //finish();
-                    startActivity(new Intent(AddBookActivity.this, AddBookActivity.class));
-                    finish();
+                   startActivity(new Intent(AddBookActivity.this, AddBookActivity.class));
+                   finish();
                 }
                 // }
 

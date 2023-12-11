@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/white"
+tools:context=".ExchangeActivity">
+
+
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+
+    app:cardCornerRadius="0dp"
+    android:layout_marginTop="0dp"
+    android:id="@+id/card_view_home"
+    app:cardBackgroundColor="@color/white"
+    >
+
+
+
+
+    <!-- <ImageView
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:src="@drawable/Logo">
+
+</ImageView>  -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:paddingStart="10dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="210dp"
+            android:text="BOOKVERSE"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            >
+
+        </TextView>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+</androidx.cardview.widget.CardView>
+
+<EditText
+    android:id="@+id/ETSearch"
+    android:layout_below="@id/card_view_home"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="30dp"
+    android:background="@drawable/edittextbackround"
+    android:backgroundTint="@color/grey"
+    android:drawableRight="@drawable/search_icon"
+    android:gravity="center"
+    android:textColorHint="@color/bgrey"
+    android:hint="Ce produs cauti azi?"
+    android:inputType="text"
+    android:textColor="@color/black"
+    android:textSize="20sp">
+
+</EditText>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/ETSearch"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/mainLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ETSearch"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="left"
+            android:text="Cărți valabile pentru schimb : "
+            android:textColor="@color/bgrey"
+            android:textSize="20dp"
+            android:textStyle="bold">
+
+        </TextView>
+
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleview1"
+        android:layout_width="match_parent"
+        android:layout_height="596dp"
+        >
+
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+
+</LinearLayout>
+
+
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@id/LLmenu"
+    android:gravity="right">
+
+
+
+
+
+
+</LinearLayout>
+
+<LinearLayout
+    android:id="@+id/LLmenu"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_alignParentBottom="true"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:background="@color/purple"
+    >
+
+
+    <Button
+        android:id="@+id/btnGoHome"
+        android:layout_width="68dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+
+        android:backgroundTint="@color/pink"
+        android:drawableLeft="@drawable/home_icon"
+        android:textColor="@color/black">
+
+    </Button>
+
+    <Button
+        android:id="@+id/btnGoExchange"
+        android:layout_width="149dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:backgroundTint="@color/pink"
+        android:drawableLeft="@drawable/exchange_icon"
+        android:text="Schimba"
+        android:textColor="@color/black">
+
+    </Button>
+
+
+
+
+    <Button
+        android:id="@+id/btnGoFav"
+        android:layout_width="68dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/pink"
+        android:layout_marginRight="15dp"
+
+        android:drawableLeft="@drawable/heart_icon">
+
+    </Button>
+
+    <Button
+        android:id="@+id/btnGoAcc"
+        android:layout_width="68dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="0dp"
+        android:backgroundTint="@color/pink"
+        android:drawableLeft="@drawable/account_icon">
+
+    </Button>
+
+
+
+</LinearLayout>
+
+
+</RelativeLayout>
+

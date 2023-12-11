@@ -47,14 +47,6 @@
     </TextView>
 
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/pink"
-        android:foregroundGravity="right"
-        android:src="@drawable/account_icon"
-
-        />
 
 </LinearLayout>
 
@@ -189,22 +181,23 @@
 
         </Button>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginRight="20dp"
-        android:orientation="vertical">
-
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/pink"
-            android:drawableLeft="@drawable/cart_icon">
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
 
-        </Button>
-    </LinearLayout>
+            <Button
+                android:id="@+id/btnGoExchange"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/pink"
+                android:drawableLeft="@drawable/exchange_icon">
+
+            </Button>
+        </LinearLayout>
+
 
 
     <LinearLayout
@@ -215,6 +208,7 @@
         android:layout_marginRight="20dp">
 
         <Button
+            android:id="@+id/btnGoFav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/heart_icon"
@@ -223,26 +217,25 @@
 
         </Button>
     </LinearLayout>
-
-
-
-
-
-    <LinearLayout
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:layout_marginRight="20dp">
-
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/account_icon"
-            android:backgroundTint="@color/pink">
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
 
-        </Button>
-    </LinearLayout>
+            <Button
+                android:id="@+id/btnGoAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/pink"
+                android:drawableLeft="@drawable/account_icon">
+
+            </Button>
+        </LinearLayout>
+
+
+
     </LinearLayout>
 
 

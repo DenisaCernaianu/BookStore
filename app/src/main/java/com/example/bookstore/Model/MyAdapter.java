@@ -1,7 +1,7 @@
 package com.example.bookstore.Model;
 
 import static android.content.Intent.getIntent;
-
+import com.example.bookstore.*;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -56,6 +56,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.price.setText(books.getPrice());
 
         String id = books.getId();
+        String price = books.getPrice();
+
 
 
 
@@ -63,13 +65,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             @Override
             public void onClick(View view) {
 
+
                 Intent intent = new Intent(context, BookDetailsActivity.class);
                 intent.putExtra("bookId",id);
                 //intent.putExtra("phoneNumber",getNumber);
                 context.startActivity(intent);
-                Toast.makeText(context, "id ul este" + id, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "id ul este" + id, Toast.LENGTH_SHORT).show();}
 
-            }
+
+
         });
 
 
@@ -85,7 +89,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView title, author, price,details, type;
+        TextView title, author, price,details, type,lei;
         ImageView image;
 
         Button btnDetails;

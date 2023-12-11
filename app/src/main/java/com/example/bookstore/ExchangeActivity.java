@@ -7,15 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.service.autofill.UserData;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.example.bookstore.Model.Books;
 import com.example.bookstore.Model.MyAdapter;
-import com.example.bookstore.Model.Users;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,45 +22,40 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
+public class ExchangeActivity extends AppCompatActivity {
+    RecyclerView recyclerView;
+    List<Books> list;
+    DatabaseReference databaseReference;
+    MyAdapter adapter;
 
+    Button btnGoFav, btnGoAcc, btnGoExchange, btnGoHome;
 
-RecyclerView recyclerView;
-List<Books> list;
-DatabaseReference databaseReference;
-MyAdapter adapter;
-
-Button btnGoFav, btnGoAcc, btnGoExchange;
-
+    TextView tvprice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        Intent intent = getIntent();
-        String getNumber = intent.getStringExtra("phoneNumber");
+        setContentView(R.layout.activity_exchange);
 
-       intent.putExtra("getNumber",getNumber);
+        btnGoFav = findViewById(R.id.btnGoFav);
+        btnGoAcc=findViewById(R.id.btnGoAcc);
+        btnGoExchange=findViewById(R.id.btnGoExchange);
+        btnGoHome = findViewById(R.id.btnGoHome);
 
 
-
-       btnGoFav = findViewById(R.id.btnGoFav);
-       btnGoAcc=findViewById(R.id.btnGoAcc);
-       btnGoExchange=findViewById(R.id.btnGoExchange);
-
-        recyclerView = findViewById(R.id.recycleview);
+        recyclerView = findViewById(R.id.recycleview1);
         databaseReference = FirebaseDatabase.getInstance().getReference();
-       // DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
+        // DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
         list = new ArrayList<>();
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(ExchangeActivity.this));
         adapter = new MyAdapter(this, list);
         recyclerView.setAdapter(adapter);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-               list.clear();
+                list.clear();
                 for(DataSnapshot dataSnapshot: snapshot.child("Books").getChildren()){
                     final String getTitle = dataSnapshot.child("title").getValue(String.class);
                     final String getAuthor = dataSnapshot.child("author").getValue(String.class);
@@ -74,16 +66,16 @@ Button btnGoFav, btnGoAcc, btnGoExchange;
                     final String getDescription = dataSnapshot.child("description").getValue(String.class);
                     final String getId = dataSnapshot.child("id").getValue(String.class);
 
-                   // Books books = dataSnapshot.getValue(Books.class);
+                    // Books books = dataSnapshot.getValue(Books.class);
                     //list.add(books);
-                    if(!getPrice.equals("0")){
-                    Books books = new Books(getTitle, getAuthor, getType, getDescription,getImage, getPrice, getOwnerNumber, getId );
-                    list.add(books);}
+                    if(getPrice.equals("0")){
+                        Books books = new Books(getTitle, getAuthor, getType, getDescription,getImage, getPrice, getOwnerNumber, getId );
+                        list.add(books);}
 
 
                 }
                 adapter.notifyDataSetChanged();
-                recyclerView.setAdapter(new MyAdapter(HomeActivity.this, list));
+                recyclerView.setAdapter(new MyAdapter(ExchangeActivity.this, list));
             }
 
             @Override
@@ -91,28 +83,12 @@ Button btnGoFav, btnGoAcc, btnGoExchange;
 
             }
         });
-
-        FloatingActionButton fab = findViewById(R.id.fab_addBook);
-        fab.setOnClickListener(new View.OnClickListener() {
+        btnGoHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(HomeActivity.this, AddBookActivity.class));
-                Intent intent = new Intent(HomeActivity.this, AddBookActivity.class);
-                intent.putExtra("phoneNumber",getNumber);
-                startActivity(intent);
-               finish();
-              // Toast.makeText(HomeActivity.this, getNumber, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ExchangeActivity.this, HomeActivity.class));
+                finish();
             }
         });
-
-        btnGoExchange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, ExchangeActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
     }
 }

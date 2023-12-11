@@ -19,8 +19,8 @@ public class Users {
     public Users(String username, String email, String phone, double password) {
         this.username = username;
         this.email = email;
-        this.phone = phone;
         this.password = password;
+        this.phone = phone;
     }
 
     public String getUsername() {

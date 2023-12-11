@@ -207,6 +207,7 @@
                 android:id="@+id/checkBoxSale"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textColor="@color/black"
                 android:text="Doresc sa vand o carte "
                 android:textSize="18dp"
                 android:checked="false"/>
@@ -227,7 +228,7 @@
                 android:visibility="invisible"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/edittextbackround"
                 android:backgroundTint="@color/grey"
                 android:hint="Pretul cartii"

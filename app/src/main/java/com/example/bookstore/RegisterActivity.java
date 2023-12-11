@@ -123,6 +123,7 @@ public class RegisterActivity extends AppCompatActivity {
                     //trimit datele catre realtime database si folosesc nr de tel ca id unic
                     databaseReference.child("Users").child(phonedb).child("username").setValue(usernamedb);
                     databaseReference.child("Users").child(phonedb).child("email").setValue(emaildb);
+                    databaseReference.child("Users").child(phonedb).child("phone").setValue(phonedb);
                     databaseReference.child("Users").child(phonedb).child("password").setValue(passworddb.hashCode());
                     progressDialog.dismiss();
                     Toast.makeText(RegisterActivity.this, "Contul a fost creat !", Toast.LENGTH_SHORT).show();
