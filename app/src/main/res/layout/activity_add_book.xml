@@ -195,7 +195,7 @@
                 android:background="@drawable/edittextbackround"
                 android:backgroundTint="@color/grey"
                 android:hint="De exemplu starea cartii "
-                android:inputType="text|textLongMessage"
+                android:inputType="text|textMultiLine"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textColorHint="@color/bgrey"

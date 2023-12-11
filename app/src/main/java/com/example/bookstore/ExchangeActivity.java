@@ -7,9 +7,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bookstore.Model.Books;
 import com.example.bookstore.Model.MyAdapter;
@@ -24,9 +28,12 @@ import java.util.List;
 
 public class ExchangeActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    List<Books> list;
+    List<Books> list, filteredList;
     DatabaseReference databaseReference;
     MyAdapter adapter;
+    EditText ETSearch1;
+
+    TextView pageTitle;
 
     Button btnGoFav, btnGoAcc, btnGoExchange, btnGoHome;
 
@@ -37,16 +44,20 @@ public class ExchangeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exchange);
 
+        ETSearch1 = findViewById(R.id.ETSearch1);
+
         btnGoFav = findViewById(R.id.btnGoFav);
         btnGoAcc=findViewById(R.id.btnGoAcc);
         btnGoExchange=findViewById(R.id.btnGoExchange);
         btnGoHome = findViewById(R.id.btnGoHome);
-
+        pageTitle=findViewById(R.id.pageTitle);
+        pageTitle.setText("Cărți valabile pentru schimb :");
 
         recyclerView = findViewById(R.id.recycleview1);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         // DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
         list = new ArrayList<>();
+        filteredList = new ArrayList<>();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(ExchangeActivity.this));
         adapter = new MyAdapter(this, list);
@@ -90,5 +101,60 @@ public class ExchangeActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+        ETSearch1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+               /*     try {
+                        if(list.size()!=0){
+                        adapter.getFilter().filter(charSequence);
+                        //recyclerView.setAdapter(new MyAdapter(HomeActivity.this, list));
+                            //
+                            }
+                    }
+                    catch (Exception e){
+                        Toast.makeText(HomeActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }*/
+                // if(charSequence.length()>0){
+
+                // searchByTitle(charSequence.toString());}
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                searchByTitle(editable.toString());
+
+            }
+
+        });
     }
+
+    private void searchByTitle( String bookName) {
+        filteredList.clear();
+
+
+        for(int i=0; i < list.size();i++ ) {
+            if ((list.get(i).getTitle().toUpperCase().contains(bookName.toUpperCase())) || (list.get(i).getAuthor().toUpperCase().contains(bookName.toUpperCase())) ) {
+                filteredList.add(list.get(i));
+            }
+        }
+        if(filteredList.size()==0){
+            pageTitle.setText("Cartea nu a fost gasita!");
+           adapter.notifyDataSetChanged();
+           // recyclerView.setAdapter(new MyAdapter(ExchangeActivity.this, list));
+            //Toast.makeText(this, "Nu s-a găsit cartea !", Toast.LENGTH_SHORT).show();
+            recyclerView.setAdapter(new MyAdapter(ExchangeActivity.this, filteredList));
+        }else {
+            pageTitle.setText("Cărți valabile pentru schimb :");
+            adapter.notifyDataSetChanged();
+            recyclerView.setAdapter(new MyAdapter(ExchangeActivity.this, filteredList));
+        }}
 }
