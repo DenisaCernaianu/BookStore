@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.bookstore.Model.AdminActivity;
 import com.example.bookstore.Model.Users;
 import com.example.bookstore.databinding.ActivityLoginBinding;
 import com.google.firebase.FirebaseException;
@@ -130,9 +131,15 @@ public class LoginActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.VISIBLE);
                             phoneNumber = "+4" + phone.getText().toString().trim();
 
-                           sendOTP(phoneNumber,false );
+                            if(phonedb.equals("0734199145")){
+                                startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+                                finish();
+                            }
+                            else
 
-                           userActual = snapshot.child(phonedb).getValue(Users.class);
+                            { sendOTP(phoneNumber,false );
+
+                           userActual = snapshot.child(phonedb).getValue(Users.class);}
 
                         }else {
                             Toast.makeText(LoginActivity.this, "Parolă incorectă !", Toast.LENGTH_LONG).show();

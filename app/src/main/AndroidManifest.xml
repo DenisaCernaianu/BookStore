@@ -21,6 +21,12 @@
         android:theme="@style/Theme.BookStore"
         tools:targetApi="31">
         <activity
+            android:name=".Model.AdminDeleteUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Model.AdminActivity"
+            android:exported="false" />
+        <activity
             android:name=".ExchangeActivity"
             android:exported="false" />
         <activity

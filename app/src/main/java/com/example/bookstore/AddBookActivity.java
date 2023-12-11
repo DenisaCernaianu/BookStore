@@ -205,8 +205,9 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AddBookActivity.this, HomeActivity.class));
-                //finish();
+               startActivity(new Intent(AddBookActivity.this, HomeActivity.class));
+                finish();
+
 
             }
         });
@@ -452,14 +453,7 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
             databaseReference.child("Books").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    //if(snapshot.hasChild(bookRandomKey)){
-                    // Toast.makeText(AddBookActivity.this, "Un cont cu acest număr de telefon deja există !", Toast.LENGTH_SHORT).show();
-                    //progressDialog.dismiss();
-                    //} else {
-                    //progressDialog.setMessage("Creating Account");
-                    //progressDialog.show();
-                  //  phoneNumber="089";
-                 // double price = Double.parseDouble(bPrice);
+
                     //trimit datele catre realtime database si folosesc nr de tel ca id unic
                   databaseReference.child("Books").child(bookRandomKey).child("ownerNumber").setValue(phoneNumber);
                     databaseReference.child("Books").child(bookRandomKey).child("title").setValue(bTitle);
@@ -475,7 +469,10 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
                     progressBarAdd.setVisibility(View.INVISIBLE);
 
                     //finish();
-                   startActivity(new Intent(AddBookActivity.this, AddBookActivity.class));
+                    Intent intent = new Intent(AddBookActivity.this, AddBookActivity.class);
+                    intent.putExtra("phoneNumber",phoneNumber);
+                    startActivity(intent);
+                  // startActivity(new Intent(AddBookActivity.this, AddBookActivity.class));
                    finish();
                 }
                 // }

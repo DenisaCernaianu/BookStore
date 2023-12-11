@@ -1,7 +1,7 @@
 package com.example.bookstore.Model;
 
 public class Users {
-    private String username, email, phone;
+    private String username, email, phone, idUser;
     private  double password;
 
     public Users(){
@@ -16,10 +16,19 @@ public class Users {
         this.phone = phone;
     }
 
-    public Users(String username, String email, String phone, double password) {
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    public Users(String username, String email, String phone, String idUser, double password) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.idUser = idUser;
         this.phone = phone;
     }
 
