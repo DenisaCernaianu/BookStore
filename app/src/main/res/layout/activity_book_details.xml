@@ -45,11 +45,41 @@ android:backgroundTint="@color/white"
             </TextView>
 
         </LinearLayout>
+        <ImageButton
+            android:id="@+id/btnAddFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/favorite_add"
+            android:backgroundTint="@color/purple"
+            />
+
+        <ImageButton
+            android:id="@+id/btnAddFav1"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/favorite_book"
+            android:backgroundTint="@color/purple"
+            />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
 
         <ImageView
             android:id="@+id/imageName"
-            android:layout_width="223dp"
-            android:layout_height="332dp"
+            android:layout_width="263dp"
+            android:layout_height="318dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:paddingLeft="5dp"
@@ -59,18 +89,23 @@ android:backgroundTint="@color/white"
         </ImageView>
 
 
+    </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:orientation="vertical"
-           >
+            android:layout_height="253dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:orientation="vertical">
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center"
                 android:orientation="horizontal">
 
 
@@ -79,45 +114,49 @@ android:backgroundTint="@color/white"
                     android:layout_height="wrap_content"
                     android:text="Titlu : "
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
+
+                    android:textSize="20dp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/titleName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:gravity="center"
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Autor : "
-                    android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:text="de "
+                    android:textColor="@color/bgrey"
+                    android:textSize="18dp" />
 
                 <TextView
                     android:id="@+id/authorName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:textColor="@color/bgrey"
+                    android:textSize="18dp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center"
+                android:layout_marginBottom="0dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -125,47 +164,26 @@ android:backgroundTint="@color/white"
                     android:layout_height="wrap_content"
                     android:text="Gen : "
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/typeName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="20dp" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left|bottom"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Detalii : "
-                    android:textColor="@color/black"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:id="@+id/DetailsName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text=""
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:textSize="17dp"
+                    android:textStyle="italic" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
 
                 <TextView
                     android:id="@+id/tvPrice"
@@ -173,7 +191,10 @@ android:backgroundTint="@color/white"
                     android:layout_height="wrap_content"
                     android:text="Pret : "
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:textSize="19dp"
+                    android:textStyle="bold"
+
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/priceName"
@@ -181,7 +202,8 @@ android:backgroundTint="@color/white"
                     android:layout_height="wrap_content"
                     android:text=""
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/lei"
@@ -189,15 +211,43 @@ android:backgroundTint="@color/white"
                     android:layout_height="wrap_content"
                     android:text=" lei "
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Detalii : "
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                     />
+
+                <TextView
+                    android:id="@+id/DetailsName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tvPhone"
@@ -205,7 +255,8 @@ android:backgroundTint="@color/white"
                     android:layout_height="wrap_content"
                     android:text="Numar de contact : "
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:textSize="19dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/phoneName"
@@ -213,40 +264,22 @@ android:backgroundTint="@color/white"
                     android:layout_height="wrap_content"
                     android:text=""
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:textSize="19dp" />
 
             </LinearLayout>
 
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btnContactOwner"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="40dp"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/purple"
+            android:text="Contacteaza proprietarul"
+            android:textColor="@color/white" />
 
-            <Button
-                android:id="@+id/btnAddFav"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:text="Adauga la favorite"
-                android:backgroundTint="@color/purple"/>
-
-
-
-            <Button
-                android:id="@+id/btnContactOwner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Contacteaza proprietarul"
-                android:backgroundTint="@color/purple"/>
-
-
-        </LinearLayout>
 
 
     </LinearLayout>
