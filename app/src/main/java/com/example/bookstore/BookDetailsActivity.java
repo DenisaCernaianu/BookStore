@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +33,8 @@ public class BookDetailsActivity extends AppCompatActivity {
 
     private TextView  title, author,  details,price,type,tvprice, phone, tvphone, lei;
     private ImageView image;
-    private Button addBookToFav, addBookToCart, contactOwner, backButton;
+    private Button  addBookToCart, contactOwner, backButton;
+    private ImageButton addBookToFav, addBookToFavDelete;
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
 
@@ -61,6 +64,7 @@ FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         type = findViewById(R.id.typeName);
         image = findViewById(R.id.imageName);
         addBookToFav=findViewById(R.id.btnAddFav);
+        addBookToFavDelete=findViewById(R.id.btnAddFav1);
 
 
         tvprice=findViewById(R.id.tvPrice);
@@ -77,10 +81,19 @@ FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
           addBookToFav.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {
+                  addBookToFav.setVisibility(View.GONE);
+                  addBookToFavDelete.setVisibility(View.VISIBLE);
                   addToFavourite();
               }
           });
-
+        addBookToFavDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addBookToFavDelete.setVisibility(View.GONE);
+                addBookToFav.setVisibility(View.VISIBLE);
+                deleteFromFavourite();
+            }
+        });
           backButton.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {
@@ -95,6 +108,9 @@ FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                   }*/
               }
           });
+    }
+
+    private void deleteFromFavourite() {
     }
 
     private void addToFavourite() {
@@ -139,14 +155,14 @@ FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
                      if(getPrice.equals("0")){
                          price.setVisibility(View.GONE);
-                         tvprice.setVisibility(View.GONE);
+                        // tvprice.setVisibility(View.GONE);
                          lei.setVisibility(View.GONE);
 
 
 
                      } else {
                          price.setVisibility(View.VISIBLE);
-                         tvprice.setVisibility(View.VISIBLE);
+                        // tvprice.setVisibility(View.VISIBLE);
                          lei.setVisibility(View.VISIBLE);
 
 
