@@ -98,9 +98,9 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:id="@+id/ETphoneLogin"
+                android:id="@+id/ETemailLogin"
                 android:background="@drawable/edittextbackround"
-                android:hint="Telefon"
+                android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:textColorHint="@color/bgrey"
                 android:textColor="@color/black"
@@ -110,7 +110,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="20dp"
                 android:backgroundTint="@color/grey"
-                android:drawableLeft="@drawable/phone"
+                android:drawableLeft="@drawable/login_email"
                 />
 
 
@@ -134,13 +134,14 @@
 
                 />
 
-            <TextView
+            <Button
                 android:id="@+id/TVforget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:paddingRight="10dp"
                 android:text="Ai uitat parola ?"
+                style="@style/Widget.Material3.Button.TextButton.Dialog"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
