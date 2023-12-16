@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.bookstore.Model.Books;
 import com.example.bookstore.Model.MyAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,11 +38,14 @@ MyAdapter adapter;
 EditText ETSearch;
 TextView pageTitle;
 
+private FirebaseAuth firebaseAuth;
+
 Button btnGoFav, btnGoAcc, btnGoExchange;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Intent intent = getIntent();
@@ -65,6 +69,8 @@ Button btnGoFav, btnGoAcc, btnGoExchange;
         recyclerView.setAdapter(adapter);
 
         pageTitle.setText("Cărți pe care le poți cumpăra :");
+
+
 
 
 

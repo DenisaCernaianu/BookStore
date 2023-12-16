@@ -35,12 +35,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookstore.Model.Books;
+import com.example.bookstore.Model.Users;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -83,10 +86,12 @@ private boolean state;
     private StorageReference bookImageReference;
 
     private DatabaseReference dbRef;
-    private String  phoneNumber;
+    private String  phoneNumber, nrtel, uid;
 
     private int check=0;
     ProgressBar progressBarAdd;
+
+    private FirebaseAuth firebaseAuth;
 
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
@@ -119,8 +124,14 @@ private boolean state;
         progressBarAdd.setVisibility(View.INVISIBLE);
         dbRef = FirebaseDatabase.getInstance().getReference().child("Books");
 
+        firebaseAuth = FirebaseAuth.getInstance();
 
-      checkBoxSale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+
+
+
+
+        checkBoxSale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
 
           @Override
@@ -407,7 +418,7 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
             public void onFailure(@NonNull Exception e) {
                 String message = e.toString();
                 Toast.makeText(AddBookActivity.this, "Error" + message, Toast.LENGTH_SHORT).show();
-                
+
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -431,9 +442,10 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
 
                             downloadUrl = task.getResult().toString();
 
-                            Toast.makeText(AddBookActivity.this, "Cartea a fost salvata !", Toast.LENGTH_SHORT).show();
+                           Toast.makeText(AddBookActivity.this, "Cartea a fost salvata !", Toast.LENGTH_SHORT).show();
 
                             saveBookInformationToDb();
+                           // getPhone();
                         }
                     }
                 });
@@ -446,16 +458,50 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
 
 
     }
+
+    private void getPhone() {
+        new Thread(new Runnable() {
+            public void run() {
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+               DatabaseReference userRef = databaseReference.child("Users");
+
+                // A potentially time consuming task.
+
+            userRef.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                        nrtel = snapshot.child("phone").getValue(String.class);
+                        saveBookInformationToDb();
+                    }
+
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(AddBookActivity.this, ""+ error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+            }
+        }).start();
+
+
+        // if(!bPrice.equals("0")) {
+
+
+    }
+
     private void saveBookInformationToDb() {
 
-       // if(!bPrice.equals("0")) {
 
-            databaseReference.child("Books").addListenerForSingleValueEvent(new ValueEventListener() {
+                    databaseReference.child("Books").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    //trimit datele catre realtime database si folosesc nr de tel ca id unic
-                  databaseReference.child("Books").child(bookRandomKey).child("ownerNumber").setValue(phoneNumber);
+                    //trimit datele catre realtime database
+                  databaseReference.child("Books").child(bookRandomKey).child("ownerNumber").setValue(nrtel);
                     databaseReference.child("Books").child(bookRandomKey).child("title").setValue(bTitle);
                     databaseReference.child("Books").child(bookRandomKey).child("author").setValue(bAuthor);
                     databaseReference.child("Books").child(bookRandomKey).child("type").setValue(bType);

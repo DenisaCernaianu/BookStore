@@ -16,6 +16,7 @@ import com.example.bookstore.HomeActivity;
 import com.example.bookstore.LoginActivity;
 import com.example.bookstore.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +33,9 @@ public class AdminActivity extends AppCompatActivity {
     MyAdapterUser adapter;
 
     Button logOut;
+
+    private FirebaseAuth firebaseAuth;
+
 
 
 
@@ -87,7 +91,7 @@ public class AdminActivity extends AppCompatActivity {
                 @Override
            public void onClick(View view) {
                     startActivity(new Intent(AdminActivity.this, LoginActivity.class));
-                    finish();
+                     finish();
 
       }
 });

@@ -13,8 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
-import com.example.bookstore.databinding.ActivityRegisterBinding;
+import com.example.bookstore.Model.Books;
+import com.example.bookstore.Model.MyAdapter;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,19 +33,18 @@ public class RegisterActivity extends AppCompatActivity {
    // private ActivityRegisterBinding binding;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
+    private boolean verify = true;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-     // binding = ActivityRegisterBinding.inflate(getLayoutInflater());
-       //setContentView(binding.getRoot());
 
-        //firebaseAuth = firebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         progressDialog =  new ProgressDialog(this);
-        progressDialog.setTitle("Please wait");
+        progressDialog.setTitle("Vă rugăm așteptați");
         progressDialog.setCanceledOnTouchOutside(false);
 
         btnSignUp = findViewById(R.id.btnSignUp);
@@ -102,34 +104,86 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Parolele nu se potrivesc !", Toast.LENGTH_SHORT).show();
         }else
         {
-            //progressDialog.setMessage("Creating Account");
-            //progressDialog.show();
-            createUserAccount();
+            createUserAccountFirebase();
+           // verifyPhone();
         }
 
     }
 
-    private void createUserAccount() {
-        databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+    private void verifyPhone() {
+        phonedb = phone.getText().toString().trim();
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.hasChild(phonedb)){
-                    Toast.makeText(RegisterActivity.this, "Un cont cu acest număr de telefon deja există !", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                } else {
-                    progressDialog.setMessage("Creating Account");
-                    progressDialog.show();
 
-                    //trimit datele catre realtime database si folosesc nr de tel ca id unic
-                    databaseReference.child("Users").child(phonedb).child("username").setValue(usernamedb);
-                    databaseReference.child("Users").child(phonedb).child("email").setValue(emaildb);
-                    databaseReference.child("Users").child(phonedb).child("phone").setValue(phonedb);
-                    databaseReference.child("Users").child(phonedb).child("id").setValue(phonedb);
-                    databaseReference.child("Users").child(phonedb).child("password").setValue(passworddb.hashCode());
+                for(DataSnapshot dataSnapshot: snapshot.child("Users").getChildren()){
+
+                    final String getNumber = dataSnapshot.child("phone").getValue(String.class);
+                     if(getNumber.equals(phonedb)){
+                         verify = false;
+                     }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(RegisterActivity.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        if(verify){createUserAccountFirebase();} else {
+            Toast.makeText(this, "Un cont cu acest numar de tel exista deja! Va rugam intoduceti numarul dvs de tel", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void createUserAccountFirebase() {
+        progressDialog.setMessage("Se creează contul ");
+        progressDialog.show();
+
+        firebaseAuth.createUserWithEmailAndPassword(emaildb,passworddb)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        saveUserAccount();
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                                progressDialog.dismiss();
+                        Toast.makeText(RegisterActivity.this, ""+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void saveUserAccount() {
+        progressDialog.setMessage("Se salvează informațiile în baza de date");
+        progressDialog.show();
+
+        String uid = firebaseAuth.getUid();
+
+       databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                {
+                    //progressDialog.setMessage("Creating Account");
+                    //progressDialog.show();
+
+                    //trimit datele catre realtime database
+                    databaseReference.child("Users").child(uid).child("username").setValue(usernamedb);
+                    databaseReference.child("Users").child(uid).child("email").setValue(emaildb);
+                    databaseReference.child("Users").child(uid).child("phone").setValue(phonedb);
+                    databaseReference.child("Users").child(uid).child("id").setValue(uid);
+                    databaseReference.child("Users").child(uid).child("password").setValue(passworddb.hashCode());
                     progressDialog.dismiss();
-                    Toast.makeText(RegisterActivity.this, "Contul a fost creat !", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                    finish();
+                   /// Toast.makeText(RegisterActivity.this, "Contul a fost creat !", Toast.LENGTH_SHORT).show();
+
+                    //finish();
+                    sendEmail();
                 }
             }
 
@@ -138,6 +192,28 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+    }
+
+    private void sendEmail() {
+        firebaseAuth.getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(RegisterActivity.this, "Un link pentru verificarea identitatii a fost trimis la adresa de email!", Toast.LENGTH_SHORT).show();
+               startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+               finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(RegisterActivity.this, "Email ul nu a putu fi trimis!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
 
     }
 }
