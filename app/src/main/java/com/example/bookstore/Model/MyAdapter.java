@@ -70,7 +70,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 intent.putExtra("bookId",id);
                 //intent.putExtra("phoneNumber",getNumber);
                 context.startActivity(intent);
-                Toast.makeText(context, "id ul este" + id, Toast.LENGTH_SHORT).show();}
+             
+            }
 
 
 

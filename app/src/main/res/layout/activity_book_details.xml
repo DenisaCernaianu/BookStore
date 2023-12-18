@@ -13,11 +13,17 @@
 android:backgroundTint="@color/white"
         android:orientation="vertical">
 
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/white">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:background="@color/white"
             >
 
             <Button
@@ -45,6 +51,8 @@ android:backgroundTint="@color/white"
             </TextView>
 
         </LinearLayout>
+
+</androidx.cardview.widget.CardView>
         <ImageButton
             android:id="@+id/btnAddFav"
             android:layout_width="wrap_content"

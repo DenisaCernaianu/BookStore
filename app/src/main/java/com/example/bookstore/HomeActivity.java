@@ -127,6 +127,15 @@ Button btnGoFav, btnGoAcc, btnGoExchange;
 
             }
         });
+
+        btnGoFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, FavoriteBooksActivity.class);
+                startActivity(intent);
+
+            }
+        });
      ETSearch.addTextChangedListener(new TextWatcher() {
          @Override
          public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

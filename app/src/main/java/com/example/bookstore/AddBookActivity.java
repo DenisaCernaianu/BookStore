@@ -156,18 +156,19 @@ private boolean state;
         bookImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
                     if (checkSelfPermission(Manifest.permission.CAMERA)==
-                            PackageManager.PERMISSION_DENIED  ||
-                            checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)==
-                                    PackageManager.PERMISSION_DENIED ){
+                            PackageManager.PERMISSION_DENIED// ||
+                            /*checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)==
+                                    PackageManager.PERMISSION_DENIED*/ ){
 
-                        String[] permission = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
+                        String[] permission = {Manifest.permission.CAMERA/*, Manifest.permission.WRITE_EXTERNAL_STORAGE*/};
                         requestPermissions(permission, CAMERA_PERM_CODE);
 
                     }
                     else{
-                      //openCamera();
+                      openCamera();
                     }
                 }else{
                     //openCamera();
@@ -185,21 +186,21 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
     public void onClick(View view) {
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
             if (
-                    checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)==
+                    checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES)==
                             PackageManager.PERMISSION_DENIED ){
 
-                String[] permission = { Manifest.permission.READ_EXTERNAL_STORAGE};
-                requestPermissions(permission, GALLERY_PERM_CODE);
+                String[] permission1 = { Manifest.permission.READ_MEDIA_IMAGES};
+                requestPermissions(permission1, GALLERY_PERM_CODE);
 
             }
             else{
-                //openCamera();
+                openGallery();
             }
         }else{
             //openCamera();
         }
-        // openCamera();
-        openGallery();
+
+      //  openGallery();
 
 
 
@@ -245,13 +246,15 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
                 if(grantResults.length>0 && grantResults[0] ==
                 PackageManager.PERMISSION_GRANTED){
                    openCamera();
+                   break;
                 }
 
-         /*  case GALLERY_PERM_CODE:
+          case GALLERY_PERM_CODE:
                 if(grantResults.length>0 && grantResults[0] ==
                         PackageManager.PERMISSION_GRANTED){
                     openGallery();
-                }*/
+                    break;
+                }
                 else {
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
                 }
