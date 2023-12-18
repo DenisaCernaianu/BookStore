@@ -102,6 +102,14 @@ public class ExchangeActivity extends AppCompatActivity {
             }
         });
 
+        btnGoFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ExchangeActivity.this, FavoriteBooksActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         ETSearch1.addTextChangedListener(new TextWatcher() {
             @Override
