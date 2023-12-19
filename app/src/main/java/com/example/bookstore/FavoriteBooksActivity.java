@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.bookstore.Model.Books;
 import com.example.bookstore.Model.MyAdapter;
@@ -32,7 +33,9 @@ public class FavoriteBooksActivity extends AppCompatActivity {
 
     List<Books> list, filteredList;
 
-    String uid;
+    List<String> listIds;
+
+    String uid, bookId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,34 +68,52 @@ public class FavoriteBooksActivity extends AppCompatActivity {
             }
         });
 
+        btnGoAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FavoriteBooksActivity.this, MyProfileActivity.class));
+            }
+        });
+
         recyclerView = findViewById(R.id.recycleview1);
 
         // DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
         list = new ArrayList<>();
+        listIds=new ArrayList<>();
         filteredList = new ArrayList<>();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(FavoriteBooksActivity.this));
         adapter = new MyAdapter(this, list);
         recyclerView.setAdapter(adapter);
 
+        getBooksId();
 
 
 
 
+
+
+
+    }
+
+    private void getBooksId() {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                list.clear();
+                listIds.clear();
+                // list.clear();
                 for(DataSnapshot dataSnapshot: snapshot.child("Users").child(uid).child("Wishlist").getChildren()){
 
-                     Books books = dataSnapshot.getValue(Books.class);
-                    
-                     list.add(books);
-
-
+                    Books books = dataSnapshot.getValue(Books.class);
+                    final String getId = dataSnapshot.child("id").getValue(String.class);
+                    //String getId = books.getId();
+                    //  list.add(books);
+                    listIds.add(getId);
+                    //Toast.makeText(FavoriteBooksActivity.this, "id ul e " +listIds.get(0), Toast.LENGTH_SHORT).show();
                 }
-                adapter.notifyDataSetChanged();
-                recyclerView.setAdapter(new MyAdapter(FavoriteBooksActivity.this, list));
+                //adapter.notifyDataSetChanged();
+                //recyclerView.setAdapter(new MyAdapter(FavoriteBooksActivity.this, list));
+                getBooks();
             }
 
             @Override
@@ -100,5 +121,35 @@ public class FavoriteBooksActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void getBooks() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
+                for(int i=0; i<listIds.size();i++){
+                    for(DataSnapshot dataSnapshot: snapshot.child("Books").getChildren()){
+                        bookId = dataSnapshot.child("id").getValue(String.class);
+
+
+                        Books books = dataSnapshot.getValue(Books.class);
+                        if(bookId.equals(listIds.get(i))){
+                        //final String getId = dataSnapshot.child("id").getValue(String.class);
+                        //String getId = books.getId();
+                        list.add(books);
+                        break;}
+                       // Toast.makeText(FavoriteBooksActivity.this, "id ul e " +listIds.get(0), Toast.LENGTH_SHORT).show();
+                    }}
+                    adapter.notifyDataSetChanged();
+                    recyclerView.setAdapter(new MyAdapter(FavoriteBooksActivity.this, list));
+                }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }

@@ -110,6 +110,13 @@ public class ExchangeActivity extends AppCompatActivity {
             }
         });
 
+        btnGoAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ExchangeActivity.this, MyProfileActivity.class));
+            }
+        });
+
 
         ETSearch1.addTextChangedListener(new TextWatcher() {
             @Override
