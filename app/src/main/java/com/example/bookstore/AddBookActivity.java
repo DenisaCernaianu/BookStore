@@ -94,8 +94,8 @@ private boolean state;
     private FirebaseAuth firebaseAuth;
 
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
-
+   // DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +106,7 @@ private boolean state;
 
         Intent intent = getIntent();
          phoneNumber = intent.getStringExtra("phoneNumber");
-
+        databaseReference= FirebaseDatabase.getInstance().getReference();
         bookImageReference = FirebaseStorage.getInstance().getReference().child("Book Images");
 
         backButton=findViewById(R.id.backButton);
@@ -125,6 +125,7 @@ private boolean state;
         dbRef = FirebaseDatabase.getInstance().getReference().child("Books");
 
         firebaseAuth = FirebaseAuth.getInstance();
+        uid = firebaseAuth.getCurrentUser().getUid();
 
 
 
@@ -447,8 +448,8 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
 
                            Toast.makeText(AddBookActivity.this, "Cartea a fost salvata !", Toast.LENGTH_SHORT).show();
 
-                            saveBookInformationToDb();
-                           // getPhone();
+                           // saveBookInformationToDb();
+                           getPhone();
                         }
                     }
                 });
@@ -463,8 +464,7 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
     }
 
     private void getPhone() {
-        new Thread(new Runnable() {
-            public void run() {
+
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
                DatabaseReference userRef = databaseReference.child("Users");
@@ -487,8 +487,8 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
 
                     }
                 });
-            }
-        }).start();
+
+
 
 
         // if(!bPrice.equals("0")) {

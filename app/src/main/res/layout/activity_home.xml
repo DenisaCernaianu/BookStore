@@ -51,6 +51,17 @@
 
             </TextView>
 
+            <Button
+                android:id="@+id/logOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginLeft="45dp"
+                android:backgroundTint="@color/purple"
+                android:text="Deconectare"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
 
 
 
@@ -122,12 +133,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleview"
             android:layout_width="match_parent"
-            android:layout_height="596dp"
-           >
+            android:layout_height="596dp">
 
 
         </androidx.recyclerview.widget.RecyclerView>
-
 
 
     </LinearLayout>

@@ -244,13 +244,13 @@ FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
                     }else {
                    //Toast.makeText(BookDetailsActivity.this, "urmeaza!"+ bookId + phoneNumber, Toast.LENGTH_LONG).show();
-                    databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("ownerNumber").setValue(bookData.getOwnerNumber());
-                    databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("title").setValue(bookData.getTitle());
-                    databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("author").setValue(bookData.getAuthor());
-                    databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("type").setValue(bookData.getType());
-                    databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("price").setValue(bookData.getPrice());
-                    databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("description").setValue(bookData.getDescription());
-                    databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("image").setValue(bookData.getImage());
+                 ///   databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("ownerNumber").setValue(bookData.getOwnerNumber());
+                   // //databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("title").setValue(bookData.getTitle());
+                    //databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("author").setValue(bookData.getAuthor());
+                    //databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("type").setValue(bookData.getType());
+                   // databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("price").setValue(bookData.getPrice());
+                    //databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("description").setValue(bookData.getDescription());
+                    //databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("image").setValue(bookData.getImage());
                     databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("id").setValue(bookData.getId());
                     Toast.makeText(BookDetailsActivity.this, "Cartea a fost adaugata la favotite !" , Toast.LENGTH_LONG).show();
                     }

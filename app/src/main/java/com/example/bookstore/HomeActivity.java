@@ -40,7 +40,7 @@ TextView pageTitle;
 
 private FirebaseAuth firebaseAuth;
 
-Button btnGoFav, btnGoAcc, btnGoExchange;
+Button btnGoFav, btnGoAcc, btnGoExchange, btnLogOut;
 
 
     @Override
@@ -60,6 +60,7 @@ Button btnGoFav, btnGoAcc, btnGoExchange;
 
         recyclerView = findViewById(R.id.recycleview);
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        firebaseAuth = FirebaseAuth.getInstance();
        // DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
         list = new ArrayList<>();
         filteredList = new ArrayList<>();
@@ -67,13 +68,21 @@ Button btnGoFav, btnGoAcc, btnGoExchange;
         recyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
         adapter = new MyAdapter(this, list);
         recyclerView.setAdapter(adapter);
+        btnLogOut = findViewById(R.id.logOut);
 
         pageTitle.setText("Cărți pe care le poți cumpăra :");
 
 
 
 
-
+    btnLogOut.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        firebaseAuth.signOut();
+        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+        finish();
+    }
+});
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -134,6 +143,13 @@ Button btnGoFav, btnGoAcc, btnGoExchange;
                 Intent intent = new Intent(HomeActivity.this, FavoriteBooksActivity.class);
                 startActivity(intent);
 
+            }
+        });
+
+        btnGoAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, MyProfileActivity.class));
             }
         });
      ETSearch.addTextChangedListener(new TextWatcher() {
