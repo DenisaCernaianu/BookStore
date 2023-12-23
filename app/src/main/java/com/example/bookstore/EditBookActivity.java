@@ -47,7 +47,7 @@ public class EditBookActivity extends AppCompatActivity {
     String bookId, priceBook;
 
     Books bookData;
-    private Uri ImageUri = null, ImageFinalUri=null;
+    //private Uri ImageUri = null, ImageFinalUri=null;
 
     private EditText title, author,  details,price,type;
 
@@ -57,7 +57,7 @@ public class EditBookActivity extends AppCompatActivity {
     private TextView textViewPrice;
     private ImageView image;
 
-    private Button saveBook;
+    private Button saveBook, backButton;
     private ImageButton deleteBook;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
 
@@ -82,6 +82,7 @@ public class EditBookActivity extends AppCompatActivity {
 
         saveBook = findViewById(R.id.btnSaveEditedBook);
         deleteBook=findViewById(R.id.btnDeleteBook);
+        backButton=findViewById(R.id.backButtonEdit);
 
         loadBookInfo();
 
@@ -89,6 +90,15 @@ public class EditBookActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveBookInfo();
+            }
+        });
+
+       backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //startActivity(new Intent(EditBookActivity.this, MyProfileActivity.class));
+                onBackPressed();
+                finish();
             }
         });
 
