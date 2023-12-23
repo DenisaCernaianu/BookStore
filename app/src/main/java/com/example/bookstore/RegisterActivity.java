@@ -1,9 +1,11 @@
 package com.example.bookstore;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -33,7 +35,8 @@ public class RegisterActivity extends AppCompatActivity {
    // private ActivityRegisterBinding binding;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
-    private boolean verify = true;
+    private int verify = 1;
+
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
 
     @Override
@@ -59,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-
+               finish();
 
             }
         });
@@ -74,6 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private String usernamedb = " ", emaildb = " ", passworddb=" ", confirmPassworddb="", phonedb = " ";
     private void validateData() {
+        verify=1;
 
         usernamedb = username.getText().toString().trim();
         emaildb = email.getText().toString().trim();
@@ -105,43 +109,72 @@ public class RegisterActivity extends AppCompatActivity {
         }else
         {
             createUserAccountFirebase();
-           // verifyPhone();
+            //verifyPhone();
         }
 
     }
 
     private void verifyPhone() {
-        phonedb = phone.getText().toString().trim();
+        String uid = firebaseAuth.getUid();
+        verify=1;
+       // phonedb = phone.getText().toString().trim();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                for(DataSnapshot dataSnapshot: snapshot.child("Users").getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.child("Users").getChildren()) {
 
+                    final String idUser = dataSnapshot.child("id").getValue(String.class);
                     final String getNumber = dataSnapshot.child("phone").getValue(String.class);
-                     if(getNumber.equals(phonedb)){
-                         verify = false;
-                     }
 
+                    if (getNumber.equals(phonedb) && !uid.equals(idUser)) {
+                        verify = 0;
+
+                    }
                 }
+                if (verify == 0) {
+                    Toast.makeText(RegisterActivity.this, "Numarul de telefon e asociat cu un alt cont!", Toast.LENGTH_SHORT).show();
+                 /*   runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            if (!isFinishing()){
+                                new AlertDialog.Builder(RegisterActivity.this)
+                                        .setTitle("Numar incorect!")
+                                        .setMessage("Numarul introdus e deja utilzat de alt cont! Introdoceti nr personal!!!")
+                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                               // finish();
+                                            }
+                                        }).show();
+                            }
+
+                        }
+                    });*/
+                } else {
+                    createUserAccountFirebase();
+                }
+
 
             }
 
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(RegisterActivity.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, ""+ error.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
 
-        if(verify){createUserAccountFirebase();} else {
-            Toast.makeText(this, "Un cont cu acest numar de tel exista deja! Va rugam intoduceti numarul dvs de tel", Toast.LENGTH_SHORT).show();
-        }
     }
+
+
 
     private void createUserAccountFirebase() {
         progressDialog.setMessage("Se creează contul ");
         progressDialog.show();
+
 
         firebaseAuth.createUserWithEmailAndPassword(emaildb,passworddb)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -201,14 +234,16 @@ public class RegisterActivity extends AppCompatActivity {
         firebaseAuth.getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
+
                 Toast.makeText(RegisterActivity.this, "Un link pentru verificarea identitatii a fost trimis la adresa de email!", Toast.LENGTH_SHORT).show();
-               startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-               finish();
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                finish();
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(RegisterActivity.this, "Email ul nu a putu fi trimis!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Email ul nu a putut fi trimis!", Toast.LENGTH_SHORT).show();
 
             }
         });

@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,14 +33,16 @@ public class MyProfileActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
 
     FirebaseAuth firebaseAuth;
-    private TextView usernameProfile, emailProfile;
+    private TextView usernameProfile, emailProfile, phoneProfile;
+
+    private ImageButton btnEditProfile;
     List<Books> list;
 
     private RecyclerView recyclerView;
 
     private MyAdapterProfile adapter;
 
-    private String uid, telefon;
+    private String uid, telefon, email, username;
 
     Button btnGoFav, btnGoHome, btnGoExchange;
 
@@ -62,9 +65,11 @@ public class MyProfileActivity extends AppCompatActivity {
         btnGoExchange=findViewById(R.id.btnGoExchange);
         btnGoHome=findViewById(R.id.btnGoHome);
         btnGoFav=findViewById(R.id.btnGoFav);
+        btnEditProfile = findViewById(R.id.btnEditProfile);
 
         usernameProfile=findViewById(R.id.usernameProfile);
         emailProfile=findViewById(R.id.emailProfile);
+        phoneProfile=findViewById(R.id.phoneProfile);
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
@@ -93,6 +98,15 @@ public class MyProfileActivity extends AppCompatActivity {
             }
         });
 
+        btnEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MyProfileActivity.this,EditProfileActivity.class));
+                finish();
+            }
+
+        });
+
         DatabaseReference userRef = databaseReference.child("Users");
 
 
@@ -102,6 +116,13 @@ public class MyProfileActivity extends AppCompatActivity {
 
 
                 telefon = snapshot.child("phone").getValue(String.class);
+                email = snapshot.child("email").getValue(String.class);
+                username = snapshot.child("username").getValue(String.class);
+
+                phoneProfile.setText(telefon);
+                emailProfile.setText(email);
+                usernameProfile.setText(username);
+
             }
 
 
@@ -111,6 +132,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
             }
         });
+
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -146,6 +168,8 @@ public class MyProfileActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
 }
