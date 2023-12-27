@@ -39,7 +39,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Bookstore"
+            android:text="BookVerse"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="36sp"
@@ -68,7 +68,7 @@
             android:backgroundTint="@color/white"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="28dp">
+            android:padding="20dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -114,25 +114,35 @@
                 />
 
 
+                <EditText
+                    android:id="@+id/ETPasswordLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/edittextbackround"
+                    android:backgroundTint="@color/grey"
+                    android:drawableStart="@drawable/login_key"
+                    android:hint="Parola"
+                    android:inputType="textPassword"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/bgrey"
+                    android:textSize="20sp"
 
-            <EditText
-                android:id="@+id/ETPasswordLogin"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/edittextbackround"
-                android:backgroundTint="@color/grey"
-                android:drawableLeft="@drawable/login_key"
-                android:hint="Parolă"
-                android:inputType="textPassword"
-                android:paddingLeft="10dp"
-                android:paddingRight="20dp"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textColorHint="@color/bgrey"
-                android:textSize="20sp"
+                    />
 
+            <CheckBox
+                android:id="@+id/checkBoxViewPassword"
+                android:text="Afișeaza parola"
+                android:textSize="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:textColor="@color/bgrey"
                 />
+
+
+
 
             <Button
                 android:id="@+id/TVforget"

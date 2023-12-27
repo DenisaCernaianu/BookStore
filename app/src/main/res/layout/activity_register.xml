@@ -42,7 +42,7 @@ tools:context=".RegisterActivity"
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Bookstore"
+            android:text="BookVerse"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="36sp"
@@ -71,29 +71,19 @@ tools:context=".RegisterActivity"
         android:backgroundTint="@color/white"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="28dp">
+        android:padding="20dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Bine ai venit !"
+            android:layout_marginBottom="20dp"
             android:textColor="@color/purple"
             android:textSize="32sp"
             android:textStyle="bold">
 
         </TextView>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:alpha="0.7"
-            android:paddingTop="6dp"
-            android:paddingBottom="30dp"
-            android:text="Completează toate câmpurile cu informațiile tale. "
-            android:textColor="@color/black"
-            android:textStyle="bold">
-
-        </TextView>
 
         <EditText
             android:layout_width="match_parent"
@@ -186,6 +176,14 @@ tools:context=".RegisterActivity"
             android:drawableLeft="@drawable/password"
 
             />
+        <CheckBox
+            android:id="@+id/checkBoxViewPasswordRegister"
+            android:text="Afișeaza parola"
+            android:textSize="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:textColor="@color/bgrey"/>
 
         <Button
             android:id="@+id/btnSignUp"
