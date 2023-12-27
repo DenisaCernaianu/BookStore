@@ -7,9 +7,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
@@ -34,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText   password, email;
 
     Button forgotPassword;
+
+    CheckBox checkBoxViewPassword;
 
     String nrTel;
 
@@ -67,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         forgotPassword = findViewById(R.id.TVforget);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+        checkBoxViewPassword=findViewById(R.id.checkBoxViewPassword);
 
 
 
@@ -92,6 +98,18 @@ public class LoginActivity extends AppCompatActivity {
         
        });
 
+       checkBoxViewPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+           @Override
+           public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+               if(b){
+                   password.setTransformationMethod(null);
+               }else
+               {
+                   password.setTransformationMethod(new PasswordTransformationMethod());
+               }
+           }
+       });
+
        forgotPassword.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
@@ -104,20 +122,26 @@ public class LoginActivity extends AppCompatActivity {
         emaildb = email.getText().toString().trim();
         resetare=1;
 
-        progressBar.setVisibility(View.VISIBLE);
-        firebaseAuth.sendPasswordResetEmail(emaildb).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Toast.makeText(LoginActivity.this, "Un link pentru resetarea parolei a fost trimis pe email", Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(View.INVISIBLE);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(LoginActivity.this, "Link ul nu a fost trimis", Toast.LENGTH_SHORT).show();
+        if(!emaildb.equals("")) {
+            progressBar.setVisibility(View.VISIBLE);
+            firebaseAuth.sendPasswordResetEmail(emaildb).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Toast.makeText(LoginActivity.this, "Un link pentru resetarea parolei a fost trimis pe email", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(LoginActivity.this, "Link ul nu a fost trimis", Toast.LENGTH_SHORT).show();
 
-            }
-        });
+                }
+            });
+        }
+        else
+        {
+            Toast.makeText(this, "Introduceti emailul!", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

@@ -9,9 +9,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -32,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText username, email, password, phone, confirmPassword;
     Button btnLogIn;
 
+    CheckBox checkBoxViewPasswordRegister;
    // private ActivityRegisterBinding binding;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
@@ -57,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
         password = findViewById(R.id.ETpassword);
         phone = findViewById(R.id.ETphone);
         confirmPassword = findViewById(R.id.ETconfirmpassword);
+        checkBoxViewPasswordRegister=findViewById(R.id.checkBoxViewPasswordRegister);
 
         btnLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +78,21 @@ public class RegisterActivity extends AppCompatActivity {
               validateData();
           }
       });
+
+        checkBoxViewPasswordRegister.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    password.setTransformationMethod(null);
+                    confirmPassword.setTransformationMethod(null);
+                }else
+                {
+                    password.setTransformationMethod(new PasswordTransformationMethod());
+                    confirmPassword.setTransformationMethod(new PasswordTransformationMethod());
+                }
+            }
+        });
+
     }
 
     private String usernamedb = " ", emaildb = " ", passworddb=" ", confirmPassworddb="", phonedb = " ";
