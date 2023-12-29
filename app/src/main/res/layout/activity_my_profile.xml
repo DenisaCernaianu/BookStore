@@ -85,7 +85,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Profilul tau : "
+                android:text="Profilul tău : "
                 android:textColor="@color/black"
                 android:textSize="20dp" />
 
@@ -189,7 +189,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cartile tale "
+                android:text="Carțile tale :"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
 
@@ -251,7 +251,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/pink"
-            android:drawableLeft="@drawable/exchange_icon">
+            android:drawableLeft="@drawable/change_book">
 
         </Button>
     </LinearLayout>

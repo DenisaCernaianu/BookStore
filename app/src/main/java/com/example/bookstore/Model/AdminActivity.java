@@ -71,7 +71,7 @@ public class AdminActivity extends AppCompatActivity {
                     //list.add(books);
 
                         Users users = new Users(getUsername, getEmail, getPhone,getId,0);
-                        if(!getPhone.equals("0734199145")){
+                        if(!getEmail.equals("bookverse2024@yahoo.com")){
                         list.add(users);}
 
 

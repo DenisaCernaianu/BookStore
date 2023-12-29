@@ -57,7 +57,7 @@ public class MyAdapterUser extends RecyclerView.Adapter<MyAdapterUser.MyViewHold
                 intent.putExtra("userId",id);
                 //intent.putExtra("phoneNumber",getNumber);
                 context.startActivity(intent);
-                Toast.makeText(context, "id ul este" + id, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "id ul este" + id, Toast.LENGTH_SHORT).show();
 
 
 
