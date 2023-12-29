@@ -199,7 +199,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         if((userData.getPassword() )== passworddb.hashCode()){
 
-                            if(emaildb.equals("admin@yahoo.com")){
+                            if(emaildb.equals("bookverse2024@yahoo.com")){
                                 startActivity(new Intent(LoginActivity.this, AdminActivity.class));
                                 finish();
                             }

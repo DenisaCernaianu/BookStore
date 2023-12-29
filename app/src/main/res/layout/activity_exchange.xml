@@ -177,8 +177,8 @@ tools:context=".ExchangeActivity">
         android:layout_height="wrap_content"
         android:layout_marginRight="15dp"
         android:backgroundTint="@color/pink"
-        android:drawableLeft="@drawable/exchange_icon"
-        android:text="Schimba"
+        android:drawableLeft="@drawable/change_book"
+        android:text="Schimbă"
         android:textColor="@color/black">
 
     </Button>

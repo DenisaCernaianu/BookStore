@@ -2,17 +2,11 @@ package com.example.bookstore;
 
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,23 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookstore.Model.Books;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 
 public class EditBookActivity extends AppCompatActivity {
@@ -47,7 +32,6 @@ public class EditBookActivity extends AppCompatActivity {
     String bookId, priceBook;
 
     Books bookData;
-    //private Uri ImageUri = null, ImageFinalUri=null;
 
     private EditText title, author,  details,price,type;
 
@@ -56,6 +40,8 @@ public class EditBookActivity extends AppCompatActivity {
 
     private TextView textViewPrice;
     private ImageView image;
+
+    private int ok=1;
 
     private Button saveBook, backButton;
     private ImageButton deleteBook;
@@ -139,6 +125,8 @@ public class EditBookActivity extends AppCompatActivity {
     }
 
     private void saveBookInfo() {
+        ok=1;
+
         databaseReference.child("Books").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -152,12 +140,20 @@ public class EditBookActivity extends AppCompatActivity {
                 //databaseReference.child("Books").child(bookId).child("image").setValue(ImageUri);
 
                 if(!priceBook.equals("0")){
-                    databaseReference.child("Books").child(bookId).child("price").setValue(price.getText().toString());
-
+                    if(price.getText().toString().equals("0")){
+                        ok=0;
+                        Toast.makeText(EditBookActivity.this, "Pretul nu poate fi 0. Pretul nu s-a actualizat!", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        ok=1;
+                        databaseReference.child("Books").child(bookId).child("price").setValue(price.getText().toString());
+                    }
                         }
 
+if(ok==1){
                 Toast.makeText(EditBookActivity.this, "Modificarile au fost salvate!", Toast.LENGTH_SHORT).show();
-
+                startActivity(new Intent(EditBookActivity.this, MyProfileActivity.class));
+                finish();}
             }
             // }
 

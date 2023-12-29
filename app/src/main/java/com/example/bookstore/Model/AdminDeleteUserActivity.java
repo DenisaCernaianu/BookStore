@@ -3,6 +3,8 @@ package com.example.bookstore.Model;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookstore.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,11 +24,15 @@ import com.squareup.picasso.Picasso;
 
 public class AdminDeleteUserActivity extends AppCompatActivity {
 
-    String userId;
+    String userId, phoneUser;
 
     private TextView username, email, phone ;
 
+    private FirebaseAuth firebaseAuth;
+
     private Button btnDeleteAcc, backButton;
+
+    private ProgressDialog progressDialog;
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
 
@@ -44,6 +51,10 @@ public class AdminDeleteUserActivity extends AppCompatActivity {
         phone= findViewById(R.id.phoneName);
         btnDeleteAcc=findViewById(R.id.btnDeleteAcc);
         backButton=findViewById(R.id.backButton);
+
+        progressDialog =  new ProgressDialog(this);
+        progressDialog.setTitle("Vă rugăm așteptați");
+
 
         loadUserInfo();
 
@@ -82,6 +93,8 @@ public class AdminDeleteUserActivity extends AppCompatActivity {
                         email.setText(getEmail);
                         phone.setText(getPhone);
 
+                       phoneUser=getPhone;
+
 
                     }
 
@@ -95,14 +108,46 @@ public class AdminDeleteUserActivity extends AppCompatActivity {
 
     private void deleteUser() {
 
+
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
+       // phoneUser =  databaseReference.child("Users").child(userId).child("phone").toString();
+
+
+        progressDialog.setMessage("Se sterge utilizatorul...");
+        progressDialog.show();
+
+        deleteBooksbyUser();
+
+
+    }
+
+    private void deleteBooksbyUser() {
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.child("Books").getChildren()) {
+                    final String getOwnerNumber = dataSnapshot.child("ownerNumber").getValue(String.class);
+                    final String getId = dataSnapshot.child("id").getValue(String.class);
+
+                        if (getOwnerNumber.equals(phoneUser)) {
+                            databaseReference.child("Books").child(getId).removeValue();
+
+                        }
+                    }
+                }
+
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
         databaseReference.child("Users").child(userId).removeValue();
-
-        Toast.makeText(this, "Utilizatorul a fost sters", Toast.LENGTH_SHORT).show();
-             onBackPressed();
-             finish();
-
-
+        Toast.makeText(this, "Utilizatorul si toate cartile ce apartin contului au fost sterse!", Toast.LENGTH_SHORT).show();
+        onBackPressed();
+        finish();
     }
 
 }

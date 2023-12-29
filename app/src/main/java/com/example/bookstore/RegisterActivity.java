@@ -192,14 +192,15 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     private void createUserAccountFirebase() {
-        progressDialog.setMessage("Se creează contul ");
-        progressDialog.show();
+
 
 
         firebaseAuth.createUserWithEmailAndPassword(emaildb,passworddb)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
+                        progressDialog.setMessage("Se creează contul ");
+                        progressDialog.show();
                         saveUserAccount();
 
                     }
@@ -255,7 +256,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void unused) {
 
-                Toast.makeText(RegisterActivity.this, "Un link pentru verificarea identitatii a fost trimis la adresa de email!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Un link pentru verificarea identitatii a fost trimis pe email!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 finish();
 

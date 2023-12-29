@@ -177,6 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
+                    android:inputType="number"
                     android:textColor="@color/black"
                     android:textSize="17dp" />
 

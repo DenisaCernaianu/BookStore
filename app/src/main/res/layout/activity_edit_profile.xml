@@ -54,6 +54,7 @@ android:background="@color/white">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_margin="10dp"
     android:layout_marginTop="30dp">
 
 
@@ -61,7 +62,19 @@ android:background="@color/white">
         android:layout_width="match_parent"
         android:layout_height="222dp"
         android:layout_margin="10dp"
+        android:paddingTop="20dp"
         android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="40dp"
+            android:textStyle="bold|italic"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:text="Editează informațiile tale : "/>
 
 
         <LinearLayout
@@ -81,12 +94,12 @@ android:background="@color/white">
 
             <EditText
                 android:id="@+id/userameProfileEdit"
-                android:layout_width="wrap_content"
+                android:layout_width="229dp"
                 android:layout_height="wrap_content"
                 android:text=""
+
                 android:textColor="@color/black"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textSize="18dp" />
 
 
         </LinearLayout>
@@ -107,8 +120,9 @@ android:background="@color/white">
 
             <EditText
                 android:id="@+id/phoneNameEdit"
-                android:layout_width="wrap_content"
+                android:layout_width="294dp"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="17dp" />
@@ -121,13 +135,13 @@ android:background="@color/white">
 
         <Button
             android:id="@+id/btnSaveProfile"
-            style="@style/Widget.Material3.Button.TextButton.Dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|bottom"
-            android:text="Salveaza modificarile"
-            android:textColor="@color/purple"
-            android:textSize="16sp" />
+            android:text="Salvează modificările"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:backgroundTint="@color/purple"/>
 
     </LinearLayout>
 

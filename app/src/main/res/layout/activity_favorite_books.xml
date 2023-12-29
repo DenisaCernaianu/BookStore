@@ -151,7 +151,7 @@ tools:context=".FavoriteBooksActivity">
         android:layout_height="wrap_content"
         android:layout_marginRight="15dp"
         android:backgroundTint="@color/pink"
-        android:drawableLeft="@drawable/exchange_icon"
+        android:drawableLeft="@drawable/change_book"
 
         android:textColor="@color/black">
 

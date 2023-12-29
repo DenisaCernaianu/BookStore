@@ -167,7 +167,7 @@ FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                 }
 
                 else {
-                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Vă rugăm să permiteți accesul aplicației la mesaje din setări!", Toast.LENGTH_SHORT).show();
                 }
 
         }}

@@ -1,8 +1,11 @@
 package com.example.bookstore;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -33,6 +36,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
      FirebaseAuth firebaseAuth;
 
+    private ProgressDialog progressDialog;
+
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
 
     @Override
@@ -50,12 +55,20 @@ public class EditProfileActivity extends AppCompatActivity {
         uid = firebaseAuth.getCurrentUser().getUid();
 
 
+        progressDialog =  new ProgressDialog(this);
+        progressDialog.setTitle("Vă rugăm așteptați");
+
+
+
         loadUserInfo();
+
+
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 validateUserInfo();
+
             }
         });
 
@@ -68,6 +81,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     private void validateUserInfo() {
@@ -87,14 +102,39 @@ public class EditProfileActivity extends AppCompatActivity {
                         String nr = phoneEdit.getText().toString();
                         if (nr.equals(getNumber) && !uid.equals(idUser)) {
                             ok = 0;
-                            //Toast.makeText(EditProfileActivity.this, "Numarul e deja asociat cu alt cont!", Toast.LENGTH_SHORT).show();
+                            //break;
+
                         }
                     }
 
-                    if (ok == 0) {
-                        Toast.makeText(EditProfileActivity.this, "Numarul e deja asociat cu alt cont!", Toast.LENGTH_SHORT).show();
-                    } else {
+                   if (ok == 0) {
+                       progressDialog.dismiss();
+                       runOnUiThread(new Runnable() {
+                           @Override
+                           public void run() {
+
+                               if (!isFinishing()){
+                                   new AlertDialog.Builder(EditProfileActivity.this)
+                                           .setTitle("Numarul de telefon e deja asociat cu alt cont!")
+                                           .setMessage("Va rugam introduceti numarul personal de telefon!")
+                                           .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                                               @Override
+                                               public void onClick(DialogInterface dialogInterface, int i) {
+
+                                                   startActivity(new Intent(EditProfileActivity.this, EditProfileActivity.class));
+                                                   //finish();
+                                                   onDestroy();
+
+                                               }
+                                           }).show();
+                               }
+
+                           }
+                       });
+                    } else { progressDialog.setMessage("Se actualizeaza datele...");
+                        progressDialog.show();
                         saveUserInfo();
+
                     }
 
                 }
@@ -113,6 +153,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private void saveUserInfo() {
 
 
+
         databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -125,8 +166,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
 
-
-                updateNumberForBooks();
             }
             // }
 
@@ -136,41 +175,67 @@ public class EditProfileActivity extends AppCompatActivity {
 
             }
 
+
+
         });
      //   Toast.makeText(EditProfileActivity.this, "Modificarile au fost salvate!", Toast.LENGTH_SHORT).show();
+
+      // if(!oldNumber.equals(phoneEdit.getText().toString()))
+        {
+            updateNumberForBooks();
+        }
+     /*   else  {
+            progressDialog.dismiss();
+           Toast.makeText(EditProfileActivity.this, "Modificarile au fost salvate!", Toast.LENGTH_SHORT).show();
+            //startActivity(new Intent(EditProfileActivity.this,MyProfileActivity.class ));
+           //Toast.makeText(EditProfileActivity.this, "Modificarile au fost salvate!", Toast.LENGTH_SHORT).show();
+            // onDestroy();
+
+        }*/
 
     }
 
     private void updateNumberForBooks() {
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                for(DataSnapshot dataSnapshot: snapshot.child("Books").getChildren()){
+        new Thread(new Runnable() {
+            public void run() {
 
-                    final String idBook  = dataSnapshot.getKey().toString();
-                    final String getOwnerNumber = dataSnapshot.child("ownerNumber").getValue(String.class);
-                   if(getOwnerNumber.equals(oldNumber)){
-                       databaseReference.child("Books").child(idBook).child("ownerNumber").setValue(phoneEdit.getText().toString());
+                // A potentially time consuming task.
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        for(DataSnapshot dataSnapshot: snapshot.child("Books").getChildren()){
+
+                            final String idBook  = dataSnapshot.getKey().toString();
+                            final String getOwnerNumber = dataSnapshot.child("ownerNumber").getValue(String.class);
+                            if(getOwnerNumber.equals(oldNumber)){
+                                databaseReference.child("Books").child(idBook).child("ownerNumber").setValue(phoneEdit.getText().toString());
 
 
-                   }
+                            }
 
+
+                        }
 
                     }
 
-                }
 
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        progressDialog.dismiss();
+                    }
+                });
 
             }
-        });
-        Toast.makeText(EditProfileActivity.this, "Modificarile au fost salvate!", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(EditProfileActivity.this,MyProfileActivity.class ));
-        onDestroy();
+        }).start();
 
+
+        //Toast.makeText(EditProfileActivity.this, "Modificarile au fost salvate!", Toast.LENGTH_SHORT).show();
+
+        progressDialog.dismiss();
+        startActivity(new Intent(EditProfileActivity.this,MyProfileActivity.class ));
+        finish();
     }
 
     private void loadUserInfo() {
@@ -193,6 +258,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
                     }
                 });
+
+
     }
 
 
