@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.bookstore.Model.Books;
 import com.example.bookstore.Model.MyAdapter;
+import com.example.bookstore.Model.Users;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -97,7 +98,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private String usernamedb = " ", emaildb = " ", passworddb=" ", confirmPassworddb="", phonedb = " ";
     private void validateData() {
-        verify=1;
 
         usernamedb = username.getText().toString().trim();
         emaildb = email.getText().toString().trim();
@@ -105,26 +105,38 @@ public class RegisterActivity extends AppCompatActivity {
         confirmPassworddb = confirmPassword.getText().toString().trim();
         phonedb = phone.getText().toString().trim();
 
-        if(TextUtils.isEmpty(usernamedb)){
+        if(TextUtils.isEmpty(usernamedb))
+        {
             Toast.makeText(this, "Introduceți numele !", Toast.LENGTH_SHORT).show();
         }
-      else if(TextUtils.isEmpty(emaildb)){
+        else if(TextUtils.isEmpty(emaildb))
+        {
             Toast.makeText(this, "Introduceți adresa de email !", Toast.LENGTH_SHORT).show();
         }
-        else if(!Patterns.EMAIL_ADDRESS.matcher(emaildb).matches()){
+        else if(!Patterns.EMAIL_ADDRESS.matcher(emaildb).matches())
+        {
             Toast.makeText(this, "Adresă de email invalidă !", Toast.LENGTH_SHORT).show();
         }
-        else if(TextUtils.isEmpty(phonedb)){
-            Toast.makeText(this, "Introduceți numărul de telefon !", Toast.LENGTH_SHORT).show();}
-        else if((phonedb.length() != 10) || !(phonedb.substring(0,2).equals("07"))){
-            Toast.makeText(this, "Numărul de telefon este invalid !", Toast.LENGTH_LONG).show();}
-        else if(TextUtils.isEmpty(passworddb)){
+        else if(TextUtils.isEmpty(phonedb))
+        {
+            Toast.makeText(this, "Introduceți numărul de telefon !", Toast.LENGTH_SHORT).show();
+        }
+        else if((phonedb.length() != 10) || !(phonedb.substring(0,2).equals("07")))
+        {
+            Toast.makeText(this, "Numărul de telefon este invalid !", Toast.LENGTH_LONG).show();
+        }
+        else if(TextUtils.isEmpty(passworddb))
+        {
             Toast.makeText(this, "Introduceți parola !", Toast.LENGTH_SHORT).show();
-        }   else if(passworddb.length()<6){
+        }
+        else if(passworddb.length()<6)
+        {
             Toast.makeText(this, "Introduceți o parolă de minim 6 caractere !", Toast.LENGTH_SHORT).show();
-        }else if(TextUtils.isEmpty(confirmPassworddb)){
+        }else if(TextUtils.isEmpty(confirmPassworddb))
+        {
             Toast.makeText(this, "Confirmați parola !", Toast.LENGTH_SHORT).show();
-        }else if(!passworddb.equals(confirmPassworddb)){
+        }else if(!passworddb.equals(confirmPassworddb))
+        {
             Toast.makeText(this, "Parolele nu se potrivesc !", Toast.LENGTH_SHORT).show();
         }else
         {
@@ -194,7 +206,6 @@ public class RegisterActivity extends AppCompatActivity {
     private void createUserAccountFirebase() {
 
 
-
         firebaseAuth.createUserWithEmailAndPassword(emaildb,passworddb)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
@@ -224,19 +235,15 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 {
-                    //progressDialog.setMessage("Creating Account");
-                    //progressDialog.show();
-
                     //trimit datele catre realtime database
+
                     databaseReference.child("Users").child(uid).child("username").setValue(usernamedb);
                     databaseReference.child("Users").child(uid).child("email").setValue(emaildb);
                     databaseReference.child("Users").child(uid).child("phone").setValue(phonedb);
                     databaseReference.child("Users").child(uid).child("id").setValue(uid);
                     databaseReference.child("Users").child(uid).child("password").setValue(passworddb.hashCode());
                     progressDialog.dismiss();
-                   /// Toast.makeText(RegisterActivity.this, "Contul a fost creat !", Toast.LENGTH_SHORT).show();
 
-                    //finish();
                     sendEmail();
                 }
             }
@@ -264,7 +271,7 @@ public class RegisterActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(RegisterActivity.this, "Email ul nu a putut fi trimis!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Email-ul nu a putut fi trimis!", Toast.LENGTH_SHORT).show();
 
             }
         });

@@ -75,7 +75,9 @@ public class EditBookActivity extends AppCompatActivity {
         saveBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveBookInfo();
+
+              //  saveBookInfo();
+                validateBookInfo();
             }
         });
 
@@ -98,8 +100,8 @@ public class EditBookActivity extends AppCompatActivity {
 
                         if (!isFinishing()){
                             new AlertDialog.Builder(EditBookActivity.this)
-                                    .setTitle("Cartea va fi stearsa!")
-                                    .setMessage("Sunteti sigur ca doriti sa stergeti cartea?")
+                                    .setTitle("Cartea va fi ștearsă!")
+                                    .setMessage("Sunteți sigur că doriți să stergeți cartea?")
                                     .setNegativeButton("NU", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -110,7 +112,7 @@ public class EditBookActivity extends AppCompatActivity {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             databaseReference.child("Books").child(bookId).removeValue();
-                                            Toast.makeText(EditBookActivity.this, "Cartea a fost stearsa", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(EditBookActivity.this, "Cartea a fost ștearsă!", Toast.LENGTH_SHORT).show();
                                             finish();
                                         }
                                     }).show();
@@ -122,6 +124,16 @@ public class EditBookActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void validateBookInfo() {
+        if(title.getText().toString().equals("") || author.getText().toString().equals("") || details.getText().toString().equals("")||type.getText().toString().equals(""))
+        {
+            Toast.makeText(this, "Câmpurile trebuie completate! Informațiile nu s-au actualizat!", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            saveBookInfo();
+        }
     }
 
     private void saveBookInfo() {
@@ -140,9 +152,10 @@ public class EditBookActivity extends AppCompatActivity {
                 //databaseReference.child("Books").child(bookId).child("image").setValue(ImageUri);
 
                 if(!priceBook.equals("0")){
-                    if(price.getText().toString().equals("0")){
+                    if(price.getText().toString().equals("0") || price.getText().toString().equals("")){
                         ok=0;
-                        Toast.makeText(EditBookActivity.this, "Pretul nu poate fi 0. Pretul nu s-a actualizat!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditBookActivity.this, "Pretul nu poate fi 0 sau null. Pretul nu s-a actualizat!", Toast.LENGTH_SHORT).show();
+                        price.setText(priceBook);
                     }
                     else {
                         ok=1;

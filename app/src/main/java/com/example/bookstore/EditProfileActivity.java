@@ -89,6 +89,8 @@ public class EditProfileActivity extends AppCompatActivity {
         ok=1;
         if((phoneEdit.getText().toString().length() != 10) || !(phoneEdit.getText().toString().substring(0,2).equals("07"))){
             Toast.makeText(this, "Numărul de telefon este invalid !", Toast.LENGTH_LONG).show();}
+        else if(usernameEdit.getText().toString().equals("")) {
+            Toast.makeText(this, "Completeaza numele de utilizator!", Toast.LENGTH_LONG).show();}
         else {
 
             databaseReference.addValueEventListener(new ValueEventListener() {
