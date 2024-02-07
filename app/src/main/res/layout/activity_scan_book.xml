@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/white"
+tools:context=".ScanBookActivity">
+
+
+<androidx.cardview.widget.CardView
+    android:id="@+id/card_view_home"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="0dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backButton"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/back_icon"
+            style="@style/Widget.Material3.Button.TextButton.Dialog"
+            android:textSize="15sp">
+
+        </Button>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingStart="10dp"
+            android:paddingLeft="30dp"
+            android:text="BOOKVERSE"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            >
+
+        </TextView>
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
+
+
+
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/card_view_home">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/scanBookBtn"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <ImageButton
+            android:id="@+id/scanBookBtn"
+            android:layout_width="81dp"
+            android:layout_height="59dp"
+            android:layout_gravity="right"
+            android:background="@color/white"
+            android:src="@drawable/book_scanner" />
+        <ImageView
+            android:id="@+id/bookImage"
+            android:layout_width="203dp"
+            android:layout_height="153dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/add_book">
+
+        </ImageView>
+
+        <Button
+            android:id="@+id/addBookGallery"
+            style="@style/Widget.Material3.Button.TextButton.Dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="0dp"
+            android:backgroundTint="@color/white"
+            android:gravity="center"
+            android:text="Adauga poza din galerie" />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="Titlu"
+            android:textColor="@color/purple"
+            android:textSize="20sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <EditText
+            android:id="@+id/bookTitle"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edittextbackround"
+            android:backgroundTint="@color/grey"
+            android:hint="Titlul cartii"
+            android:inputType="text"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textColorHint="@color/bgrey"
+            android:textSize="20sp">
+
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="Autor"
+            android:textColor="@color/purple"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/bookAuthor"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edittextbackround"
+            android:backgroundTint="@color/grey"
+            android:hint="Autorul cartii"
+            android:inputType="text"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textColorHint="@color/bgrey"
+            android:textSize="20sp">
+
+        </EditText>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="Gen"
+            android:textColor="@color/purple"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/bookType"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edittextbackround"
+            android:backgroundTint="@color/grey"
+            android:hint="Genul cartii"
+            android:inputType="text"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textColorHint="@color/bgrey"
+            android:textSize="20sp">
+
+        </EditText>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="Detalii "
+            android:textColor="@color/purple"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/bookDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edittextbackround"
+            android:backgroundTint="@color/grey"
+            android:hint="De exemplu starea cartii "
+            android:inputType="text|textMultiLine"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textColorHint="@color/bgrey"
+            android:textSize="20sp">
+
+        </EditText>
+
+        <CheckBox
+            android:id="@+id/checkBoxSale"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:checked="false"
+            android:text="Doresc sa vand o carte "
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/textViewPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="Pret"
+            android:textColor="@color/purple"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="invisible"/>
+
+        <EditText
+            android:id="@+id/bookPrice"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/edittextbackround"
+            android:backgroundTint="@color/grey"
+            android:hint="Pretul cartii"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textColorHint="@color/bgrey"
+            android:textSize="20sp">
+
+        </EditText>
+
+        <ProgressBar
+            android:id="@+id/progressBarAdd"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:backgroundTint="@color/purple"
+            >
+
+        </ProgressBar>
+
+
+        <Button
+            android:id="@+id/addBook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/purple"
+            android:gravity="center"
+            android:text="Adauga cartea" />
+
+    </LinearLayout>
+</ScrollView>
+
+</RelativeLayout>
+

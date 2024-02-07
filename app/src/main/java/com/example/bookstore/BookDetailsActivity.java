@@ -240,7 +240,7 @@ FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.hasChild(bookId))
                 {
-                    Toast.makeText(BookDetailsActivity.this, "Cartea e deja adaugata la favotite !" , Toast.LENGTH_LONG).show();
+                    Toast.makeText(BookDetailsActivity.this, "Cartea e deja adaugata la favorite !" , Toast.LENGTH_LONG).show();
 
                     }else {
                    //Toast.makeText(BookDetailsActivity.this, "urmeaza!"+ bookId + phoneNumber, Toast.LENGTH_LONG).show();

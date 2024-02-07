@@ -497,42 +497,48 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
     }
 
     private void saveBookInformationToDb() {
+        new Thread(new Runnable() {
+            public void run() {
+                // A potentially time consuming task.
+                databaseReference.child("Books").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        //trimit datele catre realtime database
+                        databaseReference.child("Books").child(bookRandomKey).child("ownerNumber").setValue(nrtel);
+                        databaseReference.child("Books").child(bookRandomKey).child("title").setValue(bTitle);
+                        databaseReference.child("Books").child(bookRandomKey).child("author").setValue(bAuthor);
+                        databaseReference.child("Books").child(bookRandomKey).child("type").setValue(bType);
+                        databaseReference.child("Books").child(bookRandomKey).child("price").setValue(bPrice);
+                        databaseReference.child("Books").child(bookRandomKey).child("description").setValue(bDescription);
+                        databaseReference.child("Books").child(bookRandomKey).child("image").setValue(downloadUrl);
+                        databaseReference.child("Books").child(bookRandomKey).child("id").setValue(bookRandomKey);
 
 
-                    databaseReference.child("Books").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    //trimit datele catre realtime database
-                  databaseReference.child("Books").child(bookRandomKey).child("ownerNumber").setValue(nrtel);
-                    databaseReference.child("Books").child(bookRandomKey).child("title").setValue(bTitle);
-                    databaseReference.child("Books").child(bookRandomKey).child("author").setValue(bAuthor);
-                    databaseReference.child("Books").child(bookRandomKey).child("type").setValue(bType);
-                    databaseReference.child("Books").child(bookRandomKey).child("price").setValue(bPrice);
-                    databaseReference.child("Books").child(bookRandomKey).child("description").setValue(bDescription);
-                    databaseReference.child("Books").child(bookRandomKey).child("image").setValue(downloadUrl);
-                    databaseReference.child("Books").child(bookRandomKey).child("id").setValue(bookRandomKey);
+                        progressBarAdd.setVisibility(View.INVISIBLE);
+
+                        //finish();
+                        Intent intent = new Intent(AddBookActivity.this, AddBookActivity.class);
+                        intent.putExtra("phoneNumber",phoneNumber);
+                        startActivity(intent);
+                        // startActivity(new Intent(AddBookActivity.this, AddBookActivity.class));
+                        finish();
+                    }
+                    // }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        //  Toast.makeText(AddBookActivity.this, "Cartea nu a putut fi adaugata!", Toast.LENGTH_LONG).show();
+
+                    }
+
+                });
 
 
+            }
+        }).start();
 
-                    progressBarAdd.setVisibility(View.INVISIBLE);
-
-                    //finish();
-                    Intent intent = new Intent(AddBookActivity.this, AddBookActivity.class);
-                    intent.putExtra("phoneNumber",phoneNumber);
-                    startActivity(intent);
-                  // startActivity(new Intent(AddBookActivity.this, AddBookActivity.class));
-                   finish();
-                }
-                // }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                  //  Toast.makeText(AddBookActivity.this, "Cartea nu a putut fi adaugata!", Toast.LENGTH_LONG).show();
-
-                }
-
-            });
 
 
 

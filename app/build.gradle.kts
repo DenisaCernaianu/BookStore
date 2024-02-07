@@ -1,3 +1,5 @@
+import java.util.regex.Pattern.compile
+
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
@@ -50,4 +52,9 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
     implementation("com.google.firebase:firebase-auth")
     implementation ("com.squareup.picasso:picasso:2.8")
+
+    implementation ("com.android.volley:volley:1.2.1")
+
+    implementation ("com.google.mlkit:barcode-scanning:17.2.0")
+
 }

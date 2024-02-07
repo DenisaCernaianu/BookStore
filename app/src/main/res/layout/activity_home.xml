@@ -133,7 +133,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleview"
             android:layout_width="match_parent"
-            android:layout_height="596dp">
+            android:layout_height="592dp">
 
 
         </androidx.recyclerview.widget.RecyclerView>
