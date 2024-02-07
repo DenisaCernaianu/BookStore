@@ -123,19 +123,23 @@ public class AdminDeleteUserActivity extends AppCompatActivity {
 
     private void deleteBooksbyUser() {
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.child("Books").getChildren()) {
-                    final String getOwnerNumber = dataSnapshot.child("ownerNumber").getValue(String.class);
-                    final String getId = dataSnapshot.child("id").getValue(String.class);
+        new Thread(new Runnable() {
+            public void run() {
+                // A potentially time consuming task.
 
-                        if (getOwnerNumber.equals(phoneUser)) {
-                            databaseReference.child("Books").child(getId).removeValue();
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.child("Books").getChildren()) {
+                            final String getOwnerNumber = dataSnapshot.child("ownerNumber").getValue(String.class);
+                            final String getId = dataSnapshot.child("id").getValue(String.class);
 
+                            if (getOwnerNumber.equals(phoneUser)) {
+                                databaseReference.child("Books").child(getId).removeValue();
+
+                            }
                         }
                     }
-                }
 
 
                     @Override
@@ -144,7 +148,11 @@ public class AdminDeleteUserActivity extends AppCompatActivity {
                     }
                 });
 
-        databaseReference.child("Users").child(userId).removeValue();
+                databaseReference.child("Users").child(userId).removeValue();
+
+            }
+        }).start();
+
         Toast.makeText(this, "Utilizatorul si toate cartile ce apartin contului au fost sterse!", Toast.LENGTH_SHORT).show();
         onBackPressed();
         finish();
