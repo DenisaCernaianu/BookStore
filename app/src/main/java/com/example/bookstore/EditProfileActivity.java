@@ -124,8 +124,8 @@ public class EditProfileActivity extends AppCompatActivity {
                                                public void onClick(DialogInterface dialogInterface, int i) {
 
                                                    startActivity(new Intent(EditProfileActivity.this, EditProfileActivity.class));
-                                                   //finish();
-                                                   onDestroy();
+                                                   finish();
+                                                  // onDestroy();
 
                                                }
                                            }).show();

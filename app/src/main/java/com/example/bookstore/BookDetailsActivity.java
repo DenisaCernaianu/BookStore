@@ -252,7 +252,7 @@ FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                     //databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("description").setValue(bookData.getDescription());
                     //databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("image").setValue(bookData.getImage());
                     databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("id").setValue(bookData.getId());
-                    Toast.makeText(BookDetailsActivity.this, "Cartea a fost adaugata la favotite !" , Toast.LENGTH_LONG).show();
+                    Toast.makeText(BookDetailsActivity.this, "Cartea a fost adaugata la favorite !" , Toast.LENGTH_LONG).show();
                     }
 
 

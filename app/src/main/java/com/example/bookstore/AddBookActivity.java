@@ -547,8 +547,8 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
 
        /* HashMap<String, Object> bookMap=  new HashMap<>();
         bookMap.put("pid",bookRandomKey);
-        bookMap.put("datenou",saveCurrentData);
-        bookMap.put("titlenew",bookTitle);
+        bookMap.put("date",saveCurrentData);
+        bookMap.put("title",bookTitle);
         bookMap.put("author",bookAuthor);
         bookMap.put("type",bookType);
         bookMap.put("price",bookPrice);

@@ -99,8 +99,7 @@ Button btnGoFav, btnGoAcc, btnGoExchange, btnLogOut;
 
                    // Books books = dataSnapshot.getValue(Books.class);
                     //list.add(books);
-
-                        if (!getPrice.equals("0")) {
+                    if (!getPrice.equals("0")) {
                             Books books = new Books(getTitle, getAuthor, getType, getDescription, getImage, getPrice, getOwnerNumber, getId);
                             list.add(books);
                         }
