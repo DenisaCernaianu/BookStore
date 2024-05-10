@@ -26,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity  {
@@ -41,6 +43,8 @@ TextView pageTitle;
 private FirebaseAuth firebaseAuth;
 
 Button btnGoFav, btnGoAcc, btnGoExchange, btnLogOut;
+
+String telefonUser;
 
 
     @Override
@@ -83,6 +87,29 @@ Button btnGoFav, btnGoAcc, btnGoExchange, btnLogOut;
         finish();
     }
 });
+
+        DatabaseReference userRef = databaseReference.child("Users");
+
+
+        userRef.child(firebaseAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                telefonUser = snapshot.child("phone").getValue(String.class);
+
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(HomeActivity.this, ""+ error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -99,12 +126,19 @@ Button btnGoFav, btnGoAcc, btnGoExchange, btnLogOut;
 
                    // Books books = dataSnapshot.getValue(Books.class);
                     //list.add(books);
-                    if (!getPrice.equals("0")) {
+                    if (!getPrice.equals("0") && !telefonUser.equals(getOwnerNumber)) {
                             Books books = new Books(getTitle, getAuthor, getType, getDescription, getImage, getPrice, getOwnerNumber, getId);
                             list.add(books);
                         }
 
                 }
+                Collections.sort(list, new Comparator<Books>() {
+                    @Override
+                    public int compare(Books book1, Books book2) {
+                        return book1.getTitle().compareTo(book2.getTitle());
+                    }
+                });
+
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(new MyAdapter(HomeActivity.this, list));
             }

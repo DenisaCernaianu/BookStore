@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".RecommendationsActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_home"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:cardBackgroundColor="@color/purple"
+        app:cardCornerRadius="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="left">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="38dp"
+                android:src="@drawable/book_menu" />
+
+
+            <TextView
+                android:layout_width="162dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:paddingStart="0dp"
+                android:paddingLeft="0dp"
+                android:paddingTop="0dp"
+                android:paddingRight="0dp"
+                android:text="BOOKVERSE"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:id="@+id/mainLayout"
+        android:layout_below="@id/card_view_home">
+
+        <TextView
+            android:id="@+id/pageTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="Recomandările noastre pentru tine: "
+            android:textColor="@color/bgrey"
+            android:textSize="20dp"
+            android:textStyle="bold">
+
+        </TextView>
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
