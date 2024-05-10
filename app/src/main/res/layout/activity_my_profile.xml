@@ -66,6 +66,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
+
+
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -82,12 +85,16 @@
             android:paddingTop="10dp">
 
 
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Profilul tău : "
                 android:textColor="@color/black"
                 android:textSize="20dp" />
+
+
 
             <TextView
                 android:id="@+id/usernameProfile"
@@ -98,6 +105,7 @@
                 android:textSize="20dp" />
 
         </LinearLayout>
+
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"

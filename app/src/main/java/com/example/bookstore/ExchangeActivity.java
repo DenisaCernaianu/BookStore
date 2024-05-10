@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.bookstore.Model.Books;
 import com.example.bookstore.Model.MyAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ExchangeActivity extends AppCompatActivity {
@@ -39,6 +42,10 @@ public class ExchangeActivity extends AppCompatActivity {
 
     TextView tvprice;
 
+    String telefonUser;
+
+    private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +59,7 @@ public class ExchangeActivity extends AppCompatActivity {
         btnGoHome = findViewById(R.id.btnGoHome);
         pageTitle=findViewById(R.id.pageTitle);
         pageTitle.setText("Cărți valabile pentru schimb :");
+        firebaseAuth = FirebaseAuth.getInstance();
 
         recyclerView = findViewById(R.id.recycleview1);
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -62,6 +70,28 @@ public class ExchangeActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(ExchangeActivity.this));
         adapter = new MyAdapter(this, list);
         recyclerView.setAdapter(adapter);
+
+        DatabaseReference userRef = databaseReference.child("Users");
+
+
+        userRef.child(firebaseAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                telefonUser = snapshot.child("phone").getValue(String.class);
+
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ExchangeActivity.this, ""+ error.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -79,12 +109,19 @@ public class ExchangeActivity extends AppCompatActivity {
 
                     // Books books = dataSnapshot.getValue(Books.class);
                     //list.add(books);
-                    if(getPrice.equals("0")){
+                    if(getPrice.equals("0")&& !telefonUser.equals(getOwnerNumber)){
                         Books books = new Books(getTitle, getAuthor, getType, getDescription,getImage, getPrice, getOwnerNumber, getId );
                         list.add(books);}
 
 
                 }
+                Collections.sort(list, new Comparator<Books>() {
+                    @Override
+                    public int compare(Books book1, Books book2) {
+                        return book1.getTitle().compareTo(book2.getTitle());
+                    }
+                });
+
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(new MyAdapter(ExchangeActivity.this, list));
             }
@@ -116,6 +153,7 @@ public class ExchangeActivity extends AppCompatActivity {
                 startActivity(new Intent(ExchangeActivity.this, MyProfileActivity.class));
             }
         });
+
 
 
         ETSearch1.addTextChangedListener(new TextWatcher() {

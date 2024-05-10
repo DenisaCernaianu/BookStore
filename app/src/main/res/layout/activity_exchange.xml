@@ -122,7 +122,7 @@ tools:context=".ExchangeActivity">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleview1"
         android:layout_width="match_parent"
-        android:layout_height="596dp"
+        android:layout_height="560dp"
         >
 
 

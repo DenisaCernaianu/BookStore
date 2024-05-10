@@ -21,11 +21,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class FavoriteBooksActivity extends AppCompatActivity {
 
-    Button btnGoFav, btnGoAcc, btnGoExchange, btnGoHome;
+    Button btnGoFav, btnGoAcc, btnGoExchange, btnGoHome, btnSeeRecommendations;
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
     MyAdapter adapter;
@@ -47,6 +49,7 @@ public class FavoriteBooksActivity extends AppCompatActivity {
         btnGoAcc=findViewById(R.id.btnGoAcc);
         btnGoExchange=findViewById(R.id.btnGoExchange);
         btnGoHome= findViewById(R.id.btnGoHome);
+        btnSeeRecommendations = findViewById(R.id.seeRecommendations);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -75,6 +78,12 @@ public class FavoriteBooksActivity extends AppCompatActivity {
             }
         });
 
+        btnSeeRecommendations.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FavoriteBooksActivity.this, RecommendationsActivity.class));
+            }
+        });
         recyclerView = findViewById(R.id.recycleview1);
 
         // DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
@@ -141,6 +150,13 @@ public class FavoriteBooksActivity extends AppCompatActivity {
                         break;}
                        // Toast.makeText(FavoriteBooksActivity.this, "id ul e " +listIds.get(0), Toast.LENGTH_SHORT).show();
                     }}
+
+                Collections.sort(list, new Comparator<Books>() {
+                    @Override
+                    public int compare(Books book1, Books book2) {
+                        return book1.getTitle().compareTo(book2.getTitle());
+                    }
+                });
                     adapter.notifyDataSetChanged();
                     recyclerView.setAdapter(new MyAdapter(FavoriteBooksActivity.this, list));
                 }
