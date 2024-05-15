@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -42,7 +43,7 @@ public class BookDetailsActivity extends AppCompatActivity {
     ActivityBookDetailsBinding binding;
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
 
-    String bookId, phoneNumber, priceBook, uid;
+    String bookId, phoneNumber, priceBook, uid, titleFav;
 
     private TextView  title, author,  details,price,type,tvprice, phone, tvphone, lei;
     private ImageView image;
@@ -215,7 +216,7 @@ FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.hasChild(bookId)) {
                     databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).removeValue();
-                    Toast.makeText(BookDetailsActivity.this, "Cartea a fost stearsa din lista de favorite !", Toast.LENGTH_LONG).show();
+                    Toast.makeText(BookDetailsActivity.this, "Cartea a fost stearsa din lista de favorite !", Toast.LENGTH_SHORT).show();
 
 
                 } else {
@@ -252,8 +253,15 @@ FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                     //databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("description").setValue(bookData.getDescription());
                     //databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("image").setValue(bookData.getImage());
                     databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("id").setValue(bookData.getId());
-                    Toast.makeText(BookDetailsActivity.this, "Cartea a fost adaugata la favorite !" , Toast.LENGTH_LONG).show();
-                    }
+                    Toast.makeText(BookDetailsActivity.this, "Cartea a fost adaugata la favorite !" , Toast.LENGTH_SHORT).show();
+                    //
+                    titleFav = bookData.getTitle();
+                    SharedPreferences settingsTitle = getSharedPreferences("MyPreferencesTitle", 0);
+                    SharedPreferences.Editor editor = settingsTitle.edit();
+                    editor.putString("title", titleFav);
+                    editor.apply();
+                    //
+                }
 
 
             }

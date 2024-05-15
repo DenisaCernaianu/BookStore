@@ -3,6 +3,7 @@ import java.util.regex.Pattern.compile
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
+    id("com.chaquo.python")
 }
 
 android {
@@ -17,6 +18,34 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            // On Apple silicon, you can omit x86_64.
+            abiFilters += listOf("arm64-v8a", "x86_64")
+        }
+    }
+
+    chaquopy {
+        defaultConfig {
+            buildPython ("C:/Users/denis/AppData/Local/Programs/Python/Python38/python.exe")
+            version = "3.8"
+            pip {
+                // A requirement specifier, with or without a version number:
+                install("scipy")
+                install("requests==2.24.0")
+                install("scikit-learn")
+                install("pandas")
+
+            }
+
+
+        }
+        sourceSets {
+            getByName("main") {
+                srcDir("src/main/python")
+            }
+        }
+
     }
 
     buildFeatures{
