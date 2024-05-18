@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.bookstore.Model.Books;
 import com.example.bookstore.Model.MyAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,7 +50,7 @@ public class FavoriteBooksActivity extends AppCompatActivity {
         btnGoAcc=findViewById(R.id.btnGoAcc);
         btnGoExchange=findViewById(R.id.btnGoExchange);
         btnGoHome= findViewById(R.id.btnGoHome);
-        btnSeeRecommendations = findViewById(R.id.seeRecommendations);
+
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -78,12 +79,15 @@ public class FavoriteBooksActivity extends AppCompatActivity {
             }
         });
 
-        btnSeeRecommendations.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fabR = findViewById(R.id.seeRecommendations);
+        fabR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 startActivity(new Intent(FavoriteBooksActivity.this, RecommendationsActivity.class));
             }
         });
+
         recyclerView = findViewById(R.id.recycleview1);
 
         // DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
