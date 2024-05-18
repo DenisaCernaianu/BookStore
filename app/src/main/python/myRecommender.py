@@ -27,10 +27,10 @@ def recommand(books, phone):
 
     for i in distance:
         if i[1] != 0 :
-            if (("0"+str(new_books.iloc[i[0]].ownerNumber) != str(phone)) and new_books.iloc[i[0]].title != books) :
+            if ((str(new_books.iloc[i[0]].ownerNumber) != str(phone)) and new_books.iloc[i[0]].title != books) :
                 myList.append(new_books.iloc[i[0]].title)
                 nr=nr+1
-            if nr==5 : break
+            if nr==6 : break
     if len(myList)==0:
         myList.append("nicioRecomandare")
     return list(myList)
