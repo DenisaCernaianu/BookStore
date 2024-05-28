@@ -30,6 +30,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 public class LoginActivity extends AppCompatActivity {
     Button btnSignUp;
 
@@ -170,7 +172,7 @@ public class LoginActivity extends AppCompatActivity {
                         verifyUser();
                         if(resetare==1 )
 
-                        { databaseReference.child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("password").setValue(passworddb.hashCode());}
+                        { databaseReference.child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("password").setValue(BCrypt.hashpw(passworddb, BCrypt.gensalt(12)));}
 
                     }
                 })
@@ -197,7 +199,8 @@ public class LoginActivity extends AppCompatActivity {
                    Users userData = snapshot.getValue(Users.class);
                     nrTel = userData.getPhone();
 
-                        if((userData.getPassword() )== passworddb.hashCode()){
+                        //if((userData.getPassword() )== passworddb.hashCode())
+                       if(BCrypt.checkpw(passworddb, userData.getPassword())) {
 
                             if(emaildb.equals("bookverse2024@yahoo.com")){
                                 startActivity(new Intent(LoginActivity.this, AdminActivity.class));

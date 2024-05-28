@@ -85,5 +85,6 @@ dependencies {
     implementation ("com.android.volley:volley:1.2.1")
 
     implementation ("com.google.mlkit:barcode-scanning:17.2.0")
+    implementation ("org.springframework.security:spring-security-crypto:5.3.3.RELEASE")
 
 }

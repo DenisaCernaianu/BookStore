@@ -1,10 +1,12 @@
 package com.example.bookstore;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -84,7 +86,28 @@ public class FavoriteBooksActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if (!isFinishing()){
+                           new AlertDialog.Builder(FavoriteBooksActivity.this)
+                                    .setTitle("Vă rugăm așteptați")
+                                    .setMessage("Se generează recomandările pentru dumneavoastră...")
+                                   .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            //finish();
+                                        }
+                                    })
+                                    .show();
+                        }
+
+                    }
+                });
+
                 startActivity(new Intent(FavoriteBooksActivity.this, RecommendationsActivity.class));
+               // finish();
             }
         });
 

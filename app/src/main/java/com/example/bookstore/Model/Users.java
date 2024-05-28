@@ -2,7 +2,7 @@ package com.example.bookstore.Model;
 
 public class Users {
     private String username, email, phone, idUser;
-    private  double password;
+    private  String password;
 
     public Users(){
 
@@ -24,7 +24,7 @@ public class Users {
         this.idUser = idUser;
     }
 
-    public Users(String username, String email, String phone, String idUser, double password) {
+    public Users(String username, String email, String phone, String idUser, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -48,11 +48,11 @@ public class Users {
         this.email = email;
     }
 
-    public double getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(double password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 }

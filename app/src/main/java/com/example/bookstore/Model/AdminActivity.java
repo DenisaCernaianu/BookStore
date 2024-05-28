@@ -70,7 +70,7 @@ public class AdminActivity extends AppCompatActivity {
                     // Books books = dataSnapshot.getValue(Books.class);
                     //list.add(books);
 
-                        Users users = new Users(getUsername, getEmail, getPhone,getId,0);
+                        Users users = new Users(getUsername, getEmail, getPhone,getId,"0");
                         if(!getEmail.equals("bookverse2024@yahoo.com")){
                         list.add(users);}
 
