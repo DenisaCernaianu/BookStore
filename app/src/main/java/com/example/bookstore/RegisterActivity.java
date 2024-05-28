@@ -31,6 +31,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 public class RegisterActivity extends AppCompatActivity {
     Button btnSignUp;
     EditText username, email, password, phone, confirmPassword;
@@ -235,15 +237,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 {
-                    //trimit datele catre realtime database
-
+                    databaseReference.child("Users").child(uid).child("id").setValue(uid);
                     databaseReference.child("Users").child(uid).child("username").setValue(usernamedb);
                     databaseReference.child("Users").child(uid).child("email").setValue(emaildb);
                     databaseReference.child("Users").child(uid).child("phone").setValue(phonedb);
-                    databaseReference.child("Users").child(uid).child("id").setValue(uid);
-                    databaseReference.child("Users").child(uid).child("password").setValue(passworddb.hashCode());
-                    progressDialog.dismiss();
+                    databaseReference.child("Users").child(uid).child("password").setValue(BCrypt.hashpw(passworddb, BCrypt.gensalt(12)));
 
+                    progressDialog.dismiss();
                     sendEmail();
                 }
             }

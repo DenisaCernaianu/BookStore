@@ -88,8 +88,10 @@ public class RecommendationsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                onBackPressed();
+                //onBackPressed();
+                startActivity(new Intent(RecommendationsActivity.this, FavoriteBooksActivity.class));
                 finish();
+
 
             }
         });
@@ -115,14 +117,14 @@ public class RecommendationsActivity extends AppCompatActivity {
 
         Python py = Python.getInstance();
         PyObject myModule = py.getModule("myRecommender");
-        PyObject myFnCallVale = myModule.get("recommand");
+        PyObject myFnCall = myModule.get("recommand");
 
         new Thread(new Runnable() {
             public void run() {
                 // A potentially time consuming task.
-                String list = myFnCallVale.call(titleFav,phoneUser).toString();
+                String list = myFnCall.call(titleFav,phoneUser).toString();
 
-                if(list.equals("nicioRecomandare")) {System.out.println("Nu am gasit recomandari!"); textRecomandari.setVisibility(View.VISIBLE); }
+                if(list.equals("nicioRecomandare")) {textRecomandari.setVisibility(View.VISIBLE); }
                 else {
                     textRecomandari.setText(list);
                     list = list.substring(1, list.length() - 1);
