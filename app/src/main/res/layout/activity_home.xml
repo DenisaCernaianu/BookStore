@@ -15,21 +15,12 @@
         app:cardBackgroundColor="@color/purple"
         app:cardCornerRadius="0dp">
 
-
-        <!-- <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:src="@drawable/Logo">
-
-    </ImageView>  -->
         <LinearLayout
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:gravity="left">
-
 
             <ImageView
                 android:layout_width="80dp"
@@ -49,7 +40,6 @@
                 android:textColor="@color/white"
                 android:textSize="25sp"
                 android:textStyle="bold">
-
             </TextView>
 
             <Button
@@ -62,9 +52,6 @@
                 android:text="Deconectare"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
-
-
-
 
         </LinearLayout>
 
@@ -104,38 +91,26 @@
         android:orientation="vertical">
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/mainLayout">
 
             <TextView
                 android:id="@+id/pageTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/ETSearch"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="0dp"
                 android:layout_marginRight="60dp"
                 android:layout_marginBottom="20dp"
-                android:gravity="left"
                 android:text="Cărți pe care le poți cumpăra : "
                 android:textColor="@color/bgrey"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold">
 
             </TextView>
-
-
-        </LinearLayout>
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleview"
             android:layout_width="match_parent"
             android:layout_height="560dp">
-
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -158,11 +133,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginBottom="0dp"
-
             android:backgroundTint="@color/purple"
             android:src="@drawable/add_icon" />
-
-
 
     </LinearLayout>
 

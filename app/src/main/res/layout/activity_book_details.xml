@@ -53,6 +53,7 @@
         </LinearLayout>
 
 </androidx.cardview.widget.CardView>
+
         <ImageButton
             android:id="@+id/btnAddFav"
             android:layout_width="wrap_content"
@@ -60,8 +61,7 @@
             android:layout_gravity="right"
             android:layout_marginRight="20dp"
             android:background="@drawable/favorite_add"
-            android:backgroundTint="@color/purple"
-            />
+            android:backgroundTint="@color/purple" />
 
         <ImageButton
             android:id="@+id/btnAddFav1"
@@ -73,6 +73,16 @@
             android:background="@drawable/favorite_book"
             android:backgroundTint="@color/purple"
             />
+
+        <ImageButton
+            android:id="@+id/btnDeleteBook"
+            android:layout_width="56dp"
+            android:layout_height="54dp"
+            android:layout_gravity="center|right"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/delete_book"
+            android:visibility="gone"
+            android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"

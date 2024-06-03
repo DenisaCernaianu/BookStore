@@ -6,10 +6,12 @@ import android.Manifest;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -37,18 +39,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 
 public class BookDetailsActivity extends AppCompatActivity {
 
     ActivityBookDetailsBinding binding;
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
 
-    String bookId, phoneNumber, priceBook, uid, titleFav;
+    String bookId, phoneNumber, priceBook, uid, titleFav, orderCurrentTime, orderRandomKey, orderCurrentData;
 
     private TextView  title, author,  details,price,type,tvprice, phone, tvphone, lei;
     private ImageView image;
     private Button  addBookToCart, contactOwner, backButton;
-    private ImageButton addBookToFav, addBookToFavDelete;
+    private ImageButton addBookToFav, addBookToFavDelete, deleteBookAdmin;
 
     private Books bookData;
 
@@ -90,10 +95,17 @@ FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         contactOwner=findViewById(R.id.btnContactOwner);
         backButton=findViewById(R.id.backButton);
         lei=findViewById(R.id.lei);
+        deleteBookAdmin = findViewById(R.id.btnDeleteBook);
 
         uid=firebaseAuth.getCurrentUser().getUid();
 
-        loadBookDetails();
+        if(uid.equals("gKsT62XIJXVQVV7Vh8laFdDowtG3")){
+            loadBookForAdmin();
+
+        }
+        else{   loadBookDetails();}
+
+
 
           addBookToFav.setOnClickListener(new View.OnClickListener() {
               @Override
@@ -139,7 +151,42 @@ FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
               }
           });
+
+          deleteBookAdmin.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+
+                  runOnUiThread(new Runnable() {
+                      @Override
+                      public void run() {
+
+                          if (!isFinishing()){
+                              new AlertDialog.Builder(BookDetailsActivity.this)
+                                      .setTitle("Cartea va fi ștearsă!")
+                                      .setMessage("Sunteți sigur că doriți să stergeți cartea?")
+                                      .setNegativeButton("NU", new DialogInterface.OnClickListener() {
+                                          @Override
+                                          public void onClick(DialogInterface dialogInterface, int i) {
+                                              finish();
+                                          }
+                                      })
+                                      .setPositiveButton("DA", new DialogInterface.OnClickListener() {
+                                          @Override
+                                          public void onClick(DialogInterface dialog, int which) {
+                                              databaseReference.child("Books").child(bookId).removeValue();
+                                              Toast.makeText(BookDetailsActivity.this, "Cartea a fost ștearsă!", Toast.LENGTH_SHORT).show();
+                                              finish();
+                                          }
+                                      }).show();
+                          }
+
+                      }
+                  });
+
+              }
+          });
     }
+
 
 
     private void checkForSmsPermission() {
@@ -200,6 +247,17 @@ FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                 smsIntent.putExtra("sms_body","message");
                 startActivity(smsIntent);
             }*/
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat currentData = new SimpleDateFormat("dd MM yyyy");
+        orderCurrentData = currentData.format(calendar.getTime());
+
+        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss");
+        orderCurrentTime = currentTime.format(calendar.getTime());
+
+        orderRandomKey = (orderCurrentData + orderCurrentTime);
+
+        databaseReference.child("Orders").child(orderRandomKey).child("bookId").setValue(bookId);
+        databaseReference.child("Orders").child(orderRandomKey).child("orderDate").setValue(orderCurrentData);
 
         Intent smsIntent = new Intent(Intent.ACTION_VIEW);
         smsIntent.setType("vnd.android-dir/mms-sms");
@@ -341,6 +399,64 @@ FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                  }
              });
     }
+
+    private void loadBookForAdmin() {
+        addBookToFavDelete.setVisibility(View.GONE);
+        addBookToFav.setVisibility(View.GONE);
+        contactOwner.setVisibility(View.INVISIBLE);
+        deleteBookAdmin.setVisibility(View.VISIBLE);
+
+
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
+        databaseReference.child("Books").child(bookId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        final String getTitle = snapshot.child("title").getValue(String.class);
+                        final String getAuthor = snapshot.child("author").getValue(String.class);
+                        final String getPrice = snapshot.child("price").getValue(String.class);
+                        final String getImage = snapshot.child("image").getValue(String.class);
+                        final String getType = snapshot.child("type").getValue(String.class);
+                        final String getOwnerNumber = snapshot.child("ownerNumber").getValue(String.class);
+                        final String getDescription = snapshot.child("description").getValue(String.class);
+                        final String getId = snapshot.child("id").getValue(String.class);
+
+                        priceBook = getPrice;
+                        bookData = snapshot.getValue(Books.class);
+
+                        if(getPrice.equals("0")){
+                            price.setVisibility(View.GONE);
+                            // tvprice.setVisibility(View.GONE);
+                            lei.setVisibility(View.GONE);
+
+
+
+                        } else {
+                            price.setVisibility(View.VISIBLE);
+                            // tvprice.setVisibility(View.VISIBLE);
+                            lei.setVisibility(View.VISIBLE);
+
+
+                        }
+                        title.setText(getTitle);
+                        author.setText(getAuthor);
+                        price.setText(getPrice);
+                        type.setText(getType);
+                        details.setText(getDescription);
+                        phone.setText(getOwnerNumber);
+                        //image.setImageURI(getImage);
+                        Picasso.get().load(getImage).into(image);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
 
 
 }

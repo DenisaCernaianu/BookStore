@@ -58,7 +58,7 @@
             android:id="@+id/btnDeleteBook"
             android:layout_width="56dp"
             android:layout_height="54dp"
-            android:layout_gravity="center|right"
+            android:layout_gravity="right"
             android:backgroundTint="@color/white"
             android:src="@drawable/delete_book"
             android:textSize="16sp" />
@@ -83,7 +83,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:paddingLeft="5dp"
-                android:src="@drawable/add_icon">
+                android:src="@drawable/add_book">
 
 
             </ImageView>

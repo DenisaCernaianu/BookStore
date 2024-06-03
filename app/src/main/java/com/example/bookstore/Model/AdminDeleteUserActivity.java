@@ -1,7 +1,10 @@
 package com.example.bookstore.Model;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -13,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookstore.EditBookActivity;
+import com.example.bookstore.ExchangeActivity;
 import com.example.bookstore.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,20 +27,30 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 public class AdminDeleteUserActivity extends AppCompatActivity {
 
     String userId, phoneUser;
 
-    private TextView username, email, phone ;
+    private TextView username, email, phone, nrBooks ;
+    private int numberBooks;
 
     private FirebaseAuth firebaseAuth;
 
     private Button btnDeleteAcc, backButton;
 
     private ProgressDialog progressDialog;
+    MyAdapter adapterAdmin;
+    RecyclerView recyclerViewAdmin;
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
+    List<Books> list;
 
+ //  DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bookstore-7c44c-default-rtdb.firebaseio.com/");
+   DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +66,57 @@ public class AdminDeleteUserActivity extends AppCompatActivity {
         phone= findViewById(R.id.phoneName);
         btnDeleteAcc=findViewById(R.id.btnDeleteAcc);
         backButton=findViewById(R.id.backButton);
+        nrBooks = findViewById(R.id.numberOfBooks);
 
         progressDialog =  new ProgressDialog(this);
         progressDialog.setTitle("Vă rugăm așteptați");
 
 
+        list = new ArrayList<>();
+        recyclerViewAdmin = findViewById(R.id.recyclerviewAdminBooks);
+        recyclerViewAdmin.setHasFixedSize(true);
+        recyclerViewAdmin.setLayoutManager(new LinearLayoutManager(AdminDeleteUserActivity.this));
+        adapterAdmin = new MyAdapter(this, list);
+        recyclerViewAdmin.setAdapter(adapterAdmin);
+
+
+
+
         loadUserInfo();
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
+                for(DataSnapshot dataSnapshot: snapshot.child("Books").getChildren()){
+
+                     Books books = dataSnapshot.getValue(Books.class);
+
+                    if( (phone.getText().toString()).equals(books.getOwnerNumber())){
+
+                        list.add(books);}
+                }
+                Collections.sort(list, new Comparator<Books>() {
+                    @Override
+                    public int compare(Books book1, Books book2) {
+                        return book1.getTitle().compareTo(book2.getTitle());
+                    }
+                });
+
+                adapterAdmin.notifyDataSetChanged();
+                recyclerViewAdmin.setAdapter(new MyAdapter(AdminDeleteUserActivity.this, list));
+                numberBooks=list.size();
+                nrBooks.setText(Integer.toString(numberBooks));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,9 +130,39 @@ public class AdminDeleteUserActivity extends AppCompatActivity {
         btnDeleteAcc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteUser();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if (!isFinishing()){
+                            new AlertDialog.Builder(AdminDeleteUserActivity.this)
+                                    .setTitle("Contul utilizatoului va fi șters!")
+                                    .setMessage("Sunteți sigur că doriți să stergeți utilizatorul și toate cărțile sale ?")
+                                    .setNegativeButton("NU", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            finish();
+                                        }
+                                    })
+                                    .setPositiveButton("DA", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            deleteUser();
+                                        }
+                                    }).show();
+                        }
+
+                    }
+                });
+
             }
         });
+
+
+
+
+
+
     }
 
 
@@ -92,6 +182,7 @@ public class AdminDeleteUserActivity extends AppCompatActivity {
                         username.setText(getUsername);
                         email.setText(getEmail);
                         phone.setText(getPhone);
+
 
                        phoneUser=getPhone;
 
