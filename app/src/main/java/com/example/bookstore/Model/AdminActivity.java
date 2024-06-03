@@ -32,11 +32,9 @@ public class AdminActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     MyAdapterUser adapter;
 
-    Button logOut;
+    Button logOut, goBooks;
 
     private FirebaseAuth firebaseAuth;
-
-
 
 
     @Override
@@ -55,6 +53,7 @@ public class AdminActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(AdminActivity.this));
         adapter = new MyAdapterUser(this, list);
         recyclerView.setAdapter(adapter);
+        goBooks = findViewById(R.id.btnGoBooks);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -65,12 +64,10 @@ public class AdminActivity extends AppCompatActivity {
                     final String getEmail = dataSnapshot.child("email").getValue(String.class);
                     final String getPhone = dataSnapshot.child("phone").getValue(String.class);
                     final String getId = dataSnapshot.child("id").getValue(String.class);
+                    final String getPassword = dataSnapshot.child("password").getValue(String.class);
 
 
-                    // Books books = dataSnapshot.getValue(Books.class);
-                    //list.add(books);
-
-                        Users users = new Users(getUsername, getEmail, getPhone,getId,"0");
+                    Users users = new Users(getUsername, getEmail, getPhone,getId,getPassword);
                         if(!getEmail.equals("bookverse2024@yahoo.com")){
                         list.add(users);}
 
@@ -96,6 +93,13 @@ public class AdminActivity extends AppCompatActivity {
       }
 });
 
+       goBooks.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               startActivity(new Intent(AdminActivity.this, AdminViewBooksActivity.class));
+               finish();
+           }
+       });
 
     }
 }

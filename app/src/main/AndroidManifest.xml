@@ -26,6 +26,9 @@
         android:theme="@style/Theme.BookStore"
         tools:targetApi="31">
         <activity
+            android:name=".Model.AdminViewBooksActivity"
+            android:exported="false" />
+        <activity
             android:name=".RecommendationsActivity"
             android:exported="false" />
         <activity

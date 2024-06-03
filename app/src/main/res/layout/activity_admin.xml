@@ -8,8 +8,6 @@ android:background="@color/white"
 tools:context=".Model.AdminActivity">
 
 
-
-
     <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -45,6 +43,7 @@ tools:context=".Model.AdminActivity">
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="38dp"
+                    android:paddingTop="2dp"
                     android:src="@drawable/book_menu" />
 
 
@@ -54,7 +53,7 @@ tools:context=".Model.AdminActivity">
                     android:layout_gravity="left"
                     android:paddingStart="0dp"
                     android:paddingLeft="0dp"
-                    android:paddingTop="0dp"
+                    android:paddingTop="5dp"
                     android:paddingRight="0dp"
                     android:text="BOOKVERSE"
                     android:textColor="@color/white"
@@ -68,7 +67,7 @@ tools:context=".Model.AdminActivity">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:layout_marginLeft="45dp"
+                    android:layout_marginLeft="40dp"
                     android:backgroundTint="@color/purple"
                     android:text="Deconectare"
                     android:textColor="@color/white"
@@ -109,7 +108,7 @@ tools:context=".Model.AdminActivity">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleview1"
             android:layout_width="match_parent"
-            android:layout_height="722dp"
+            android:layout_height="648dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
 
@@ -119,6 +118,68 @@ tools:context=".Model.AdminActivity">
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/LLmenu"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/purple"
+        >
+
+
+        <Button
+            android:id="@+id/btnGoUsers"
+            android:layout_width="154dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="35dp"
+            android:backgroundTint="@color/pink"
+            android:drawableLeft="@drawable/account_icon"
+            android:text="Utilizatori"
+            android:textColor="@color/black">
+
+        </Button>
+
+        <Button
+            android:id="@+id/btnGoBooks"
+            android:layout_width="73dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="35dp"
+            android:backgroundTint="@color/pink"
+            android:drawableLeft="@drawable/book_admin_menu"
+
+            android:textColor="@color/black">
+
+        </Button>
+
+
+        <Button
+            android:id="@+id/btnGoSales"
+            android:layout_width="67dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="0dp"
+            android:backgroundTint="@color/pink"
+            android:drawableLeft="@drawable/img_1"
+            android:textColor="@color/black">
+
+        </Button>
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/btnGoAcc"
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="0dp"
+            android:backgroundTint="@color/pink"
+            android:drawableLeft="@drawable/account_icon">
+
+        </Button>
+
+
+
+    </LinearLayout>
 
 
 

@@ -201,7 +201,7 @@ public class ExchangeActivity extends AppCompatActivity {
         }
         if(filteredList.size()==0){
             pageTitle.setText("Cartea nu a fost gasita!");
-           adapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
            // recyclerView.setAdapter(new MyAdapter(ExchangeActivity.this, list));
             //Toast.makeText(this, "Nu s-a găsit cartea !", Toast.LENGTH_SHORT).show();
             recyclerView.setAdapter(new MyAdapter(ExchangeActivity.this, filteredList));
