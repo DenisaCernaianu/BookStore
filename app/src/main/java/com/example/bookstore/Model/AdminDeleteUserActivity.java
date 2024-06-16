@@ -244,7 +244,7 @@ public class AdminDeleteUserActivity extends AppCompatActivity {
             }
         }).start();
 
-        Toast.makeText(this, "Utilizatorul si toate cartile ce apartin contului au fost sterse!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Utilizatorul a fost șters!", Toast.LENGTH_SHORT).show();
         onBackPressed();
         finish();
     }

@@ -32,7 +32,7 @@ public class AdminActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     MyAdapterUser adapter;
 
-    Button logOut, goBooks;
+    Button logOut, goBooks, goSales;
 
     private FirebaseAuth firebaseAuth;
 
@@ -54,6 +54,7 @@ public class AdminActivity extends AppCompatActivity {
         adapter = new MyAdapterUser(this, list);
         recyclerView.setAdapter(adapter);
         goBooks = findViewById(R.id.btnGoBooks);
+        goSales = findViewById(R.id.btnGoSales);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -98,6 +99,15 @@ public class AdminActivity extends AppCompatActivity {
            public void onClick(View view) {
                startActivity(new Intent(AdminActivity.this, AdminViewBooksActivity.class));
                finish();
+           }
+       });
+
+       goSales.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               startActivity(new Intent(AdminActivity.this, AdminViewOrdersActivity.class));
+               finish();
+
            }
        });
 

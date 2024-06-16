@@ -35,7 +35,7 @@ public class AdminViewBooksActivity extends AppCompatActivity {
     List<Books> list, filteredList;
 
     MyAdapter adapterAdminBooks;
-    Button viewUsersBtn;
+    Button viewUsersBtn, viewSalesBtn;
     EditText searchBookAdmin;
 
     TextView titlePageAdmin;
@@ -56,6 +56,7 @@ public class AdminViewBooksActivity extends AppCompatActivity {
         viewUsersBtn =  findViewById(R.id.btnGoUsers);
         searchBookAdmin = findViewById(R.id.ETSearchAdmin);
         titlePageAdmin = findViewById(R.id.pageTitleAdmin);
+        viewSalesBtn = findViewById(R.id.btnGoSales);
 
         titlePageAdmin.setText("Cărți disponibile în aplicație : ");
 
@@ -90,6 +91,15 @@ public class AdminViewBooksActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(AdminViewBooksActivity.this, AdminActivity.class));
                 finish();
+            }
+        });
+
+       viewSalesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AdminViewBooksActivity.this, AdminViewOrdersActivity.class));
+                finish();
+
             }
         });
 
