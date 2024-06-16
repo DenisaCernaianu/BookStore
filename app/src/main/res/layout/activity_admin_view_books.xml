@@ -127,7 +127,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerviewAdmin"
             android:layout_width="match_parent"
-            android:layout_height="648dp"
+            android:layout_height="595dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp">
@@ -175,7 +175,7 @@
 
 
         <Button
-            android:id="@+id/btnGoFav"
+            android:id="@+id/btnGoSales"
             android:layout_width="66dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="0dp"
