@@ -153,7 +153,6 @@ String telefonUser;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(HomeActivity.this, AddBookActivity.class));
 
             /*    Intent intent = new Intent(HomeActivity.this, AddBookActivity.class);
                 intent.putExtra("phoneNumber",getNumber);
@@ -161,8 +160,6 @@ String telefonUser;
                finish();
 
              */
-
-              // Toast.makeText(HomeActivity.this, getNumber, Toast.LENGTH_SHORT).show();
 
                 startActivity(new Intent(HomeActivity.this, ScanBookActivity.class));
             }
@@ -200,9 +197,7 @@ String telefonUser;
 
          @Override
          public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            // if(charSequence.length()>0){
 
-            // searchByTitle(charSequence.toString());}
          }
 
          @Override
@@ -236,51 +231,7 @@ String telefonUser;
             recyclerView.setAdapter(new MyAdapter(HomeActivity.this, filteredList));
         }
 
-       // databaseReference.child("Books").addListenerForSingleValueEvent(new ValueEventListener() {
-      /*  databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                filteredList.clear();
-                for(DataSnapshot dataSnapshot: snapshot.child("Books").getChildren()){
 
-                if(dataSnapshot.child("title").getValue(String.class).toUpperCase().contains(bookName.toUpperCase()))
-                {
-
-                    final String getTitle = dataSnapshot.child("title").getValue(String.class);
-                    final String getAuthor = dataSnapshot.child("author").getValue(String.class);
-                    final String getPrice = dataSnapshot.child("price").getValue(String.class);
-                    final String getImage = dataSnapshot.child("image").getValue(String.class);
-                    final String getType =dataSnapshot.child("type").getValue(String.class);
-                    final String getOwnerNumber = dataSnapshot.child("ownerNumber").getValue(String.class);
-                    final String getDescription = dataSnapshot.child("description").getValue(String.class);
-                    final String getId = dataSnapshot.child("id").getValue(String.class);
-
-                    // Books books = dataSnapshot.getValue(Books.class);
-                    //list.add(books);
-                    if(!getPrice.equals("0")){
-                        Books books = new Books(getTitle, getAuthor, getType, getDescription,getImage, getPrice, getOwnerNumber, getId );
-                        filteredList.add(books);
-
-                    }
-
-                    adapter.notifyDataSetChanged();
-                    recyclerView.setAdapter(new MyAdapter(HomeActivity.this, filteredList));
-
-
-                }else if(filteredList.size()==0) {
-
-                    recyclerView.setAdapter(new MyAdapter(HomeActivity.this,list));
-                }
-
-            }}
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        */
     }
 
 

@@ -76,7 +76,6 @@ public class EditBookActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-              //  saveBookInfo();
                 validateBookInfo();
             }
         });

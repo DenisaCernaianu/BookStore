@@ -45,7 +45,7 @@ import java.util.Calendar;
 
 public class BookDetailsActivity extends AppCompatActivity {
 
-    ActivityBookDetailsBinding binding;
+
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
 
     String bookId, phoneNumber, priceBook, uid, titleFav, orderCurrentTime, orderRandomKey, orderCurrentData;
@@ -130,11 +130,6 @@ FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                       onBackPressed();
                       finish();
 
-                /*  if(priceBook.equals("0")){
-                      startActivity(new Intent(BookDetailsActivity.this,ExchangeActivity.class));
-                  } else {
-                      startActivity(new Intent(BookDetailsActivity.this,HomeActivity.class));
-                  }*/
               }
           });
           contactOwner.setOnClickListener(new View.OnClickListener() {
@@ -193,15 +188,12 @@ FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.SEND_SMS) !=
                 PackageManager.PERMISSION_GRANTED) {
-            // Permission not yet granted. Use requestPermissions().
-            // MY_PERMISSIONS_REQUEST_SEND_SMS is an
-            // app-defined int constant. The callback method gets the
-            // result of the request.
+
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.SEND_SMS},
                     MY_PERMISSIONS_REQUEST_SEND_SMS);
         } else {
-            // Permission already granted. Enable the message button.
+
             sendSMS();
         }
     }
@@ -222,31 +214,7 @@ FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
 
     private void sendSMS() {
-        /*    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) // At least KitKat
-            {
-                String defaultSmsPackageName = Telephony.Sms.getDefaultSmsPackage(this); // Need to change the build to API 19
 
-                Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                sendIntent.setType("text/plain");
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "text");
-                sendIntent.putExtra(Intent.EXTRA_PHONE_NUMBER,bookData.getOwnerNumber().toString() );
-
-                if (defaultSmsPackageName != null)// Can be null in case that there is no default, then the user would be able to choose
-                // any app that support this intent.
-                {
-                    sendIntent.setPackage(defaultSmsPackageName);
-                }
-                startActivity(sendIntent);
-
-            }
-            else // For early versions, do what worked for you before.
-            {
-                Intent smsIntent = new Intent(android.content.Intent.ACTION_VIEW);
-                smsIntent.setType("vnd.android-dir/mms-sms");
-                smsIntent.putExtra("address",bookData.getOwnerNumber());
-                smsIntent.putExtra("sms_body","message");
-                startActivity(smsIntent);
-            }*/
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat currentData = new SimpleDateFormat("dd MM yyyy");
         orderCurrentData = currentData.format(calendar.getTime());
@@ -312,13 +280,11 @@ FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                     //databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("image").setValue(bookData.getImage());
                     databaseReference.child("Users").child(uid).child("Wishlist").child(bookId).child("id").setValue(bookData.getId());
                     Toast.makeText(BookDetailsActivity.this, "Cartea a fost adaugata la favorite !" , Toast.LENGTH_SHORT).show();
-                    //
                     titleFav = bookData.getTitle();
                     SharedPreferences settingsTitle = getSharedPreferences("MyPreferencesTitle", 0);
                     SharedPreferences.Editor editor = settingsTitle.edit();
                     editor.putString("title", titleFav);
                     editor.apply();
-                    //
                 }
 
 

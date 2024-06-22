@@ -231,45 +231,5 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-   /* public void sendOTP(String phoneNumber, boolean isResend){
-        PhoneAuthOptions.Builder builder =
-                PhoneAuthOptions.newBuilder(firebaseAuth).setPhoneNumber(phoneNumber)
-                        .setTimeout(60L, TimeUnit.SECONDS)
-                        .setActivity(this)
-                        .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                            @Override
-                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-
-                            }
-
-                            @Override
-                            public void onVerificationFailed(@NonNull FirebaseException e) {
-
-                            }
-
-                            @Override
-                            public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                super.onCodeSent(s, forceResendingToken);
-                                verificationCode = s;
-                                resendingToken = forceResendingToken;
-                                Toast.makeText(LoginActivity.this, "Codul a fost trimis cu succes!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(LoginActivity.this, VerifyOTPActivity.class);
-                                intent.putExtra("verificationCode", verificationCode);
-                                intent.putExtra("phoneNumber",phoneNumber);
-                                intent.putExtra("phoneNumber1",phonedb);
-                                startActivity(intent);
-                            finish();}
-
-
-
-                        });
-
-        if(isResend){PhoneAuthProvider.verifyPhoneNumber(builder.setForceResendingToken(resendingToken).build());}
-        else{PhoneAuthProvider.verifyPhoneNumber(builder.build());}
-
-
-    }*/
-
 
 }

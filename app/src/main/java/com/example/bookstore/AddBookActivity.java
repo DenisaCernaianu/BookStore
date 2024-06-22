@@ -469,7 +469,6 @@ addBookGallery.setOnClickListener(new View.OnClickListener() {
 
                DatabaseReference userRef = databaseReference.child("Users");
 
-                // A potentially time consuming task.
 
             userRef.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
