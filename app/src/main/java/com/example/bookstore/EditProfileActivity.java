@@ -125,7 +125,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                                                    startActivity(new Intent(EditProfileActivity.this, EditProfileActivity.class));
                                                    finish();
-                                                  // onDestroy();
+
 
                                                }
                                            }).show();
@@ -173,7 +173,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                //  Toast.makeText(AddBookActivity.this, "Cartea nu a putut fi adaugata!", Toast.LENGTH_LONG).show();
+
 
             }
 
@@ -186,14 +186,7 @@ public class EditProfileActivity extends AppCompatActivity {
         {
             updateNumberForBooks();
         }
-     /*   else  {
-            progressDialog.dismiss();
-           Toast.makeText(EditProfileActivity.this, "Modificarile au fost salvate!", Toast.LENGTH_SHORT).show();
-            //startActivity(new Intent(EditProfileActivity.this,MyProfileActivity.class ));
-           //Toast.makeText(EditProfileActivity.this, "Modificarile au fost salvate!", Toast.LENGTH_SHORT).show();
-            // onDestroy();
 
-        }*/
 
     }
 

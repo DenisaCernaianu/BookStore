@@ -73,10 +73,6 @@ public class MyProfileActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
-
-
-
-
         btnGoFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,8 +145,7 @@ public class MyProfileActivity extends AppCompatActivity {
                     final String getDescription = dataSnapshot.child("description").getValue(String.class);
                     final String getId = dataSnapshot.child("id").getValue(String.class);
 
-                    // Books books = dataSnapshot.getValue(Books.class);
-                    //list.add(books);
+
                     if(getOwnerNumber!=null) {
                         if (getOwnerNumber.equals(telefon)) {
                             Books books = new Books(getTitle, getAuthor, getType, getDescription, getImage, getPrice, getOwnerNumber, getId);

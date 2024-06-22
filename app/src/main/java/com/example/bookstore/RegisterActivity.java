@@ -39,7 +39,6 @@ public class RegisterActivity extends AppCompatActivity {
     Button btnLogIn;
 
     CheckBox checkBoxViewPasswordRegister;
-   // private ActivityRegisterBinding binding;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
     private int verify = 1;
@@ -168,24 +167,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 if (verify == 0) {
                     Toast.makeText(RegisterActivity.this, "Numarul de telefon e asociat cu un alt cont!", Toast.LENGTH_SHORT).show();
-                 /*   runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
 
-                            if (!isFinishing()){
-                                new AlertDialog.Builder(RegisterActivity.this)
-                                        .setTitle("Numar incorect!")
-                                        .setMessage("Numarul introdus e deja utilzat de alt cont! Introdoceti nr personal!!!")
-                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                               // finish();
-                                            }
-                                        }).show();
-                            }
-
-                        }
-                    });*/
                 } else {
                     createUserAccountFirebase();
                 }

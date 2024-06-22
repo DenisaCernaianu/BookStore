@@ -678,11 +678,10 @@ public class ScanBookActivity extends AppCompatActivity {
 
                 progressBarAdd.setVisibility(View.INVISIBLE);
 
-                //finish();
                 Intent intent = new Intent(ScanBookActivity.this, ScanBookActivity.class);
                 startActivity(intent);
-                // startActivity(new Intent(AddBookActivity.this, AddBookActivity.class));
                 finish();
+
               /*  databaseReference.child("Books").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

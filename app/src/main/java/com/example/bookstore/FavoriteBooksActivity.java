@@ -145,10 +145,8 @@ public class FavoriteBooksActivity extends AppCompatActivity {
                     //String getId = books.getId();
                     //  list.add(books);
                     listIds.add(getId);
-                    //Toast.makeText(FavoriteBooksActivity.this, "id ul e " +listIds.get(0), Toast.LENGTH_SHORT).show();
                 }
-                //adapter.notifyDataSetChanged();
-                //recyclerView.setAdapter(new MyAdapter(FavoriteBooksActivity.this, list));
+
                 getBooks();
             }
 

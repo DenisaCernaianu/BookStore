@@ -164,20 +164,7 @@ public class ExchangeActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-               /*     try {
-                        if(list.size()!=0){
-                        adapter.getFilter().filter(charSequence);
-                        //recyclerView.setAdapter(new MyAdapter(HomeActivity.this, list));
-                            //
-                            }
-                    }
-                    catch (Exception e){
-                        Toast.makeText(HomeActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
-                    }*/
-                // if(charSequence.length()>0){
-
-                // searchByTitle(charSequence.toString());}
             }
 
             @Override
